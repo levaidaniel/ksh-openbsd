@@ -1990,7 +1990,7 @@ complete_word(int command, int count, int flags)
 		count--;
 		if (count >= nwords) {
 			vi_error();
-			x_print_expansions(nwords, words, is_command);
+			x_print_expansions(nwords, words, is_command, 1);
 			x_free_words(nwords, words);
 			redraw_line(0);
 			return -1;
@@ -2064,7 +2064,7 @@ print_expansions(struct edstate *e, int flags)
 		vi_error();
 		return -1;
 	}
-	x_print_expansions(nwords, words, is_command);
+	x_print_expansions(nwords, words, is_command, 1);
 	x_free_words(nwords, words);
 	redraw_line(0);
 	return 0;

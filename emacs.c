@@ -1787,7 +1787,7 @@ do_complete(int flags,	/* XCF_{COMMAND,FILE,COMMAND_FILE} */
 	}
 
 	if (type == CT_LIST) {
-		x_print_expansions(nwords, words, is_command);
+		x_print_expansions(nwords, words, is_command, 0);
 		x_redraw(0);
 		x_free_words(nwords, words);
 		return;
@@ -1810,7 +1810,7 @@ do_complete(int flags,	/* XCF_{COMMAND,FILE,COMMAND_FILE} */
 	}
 
 	if (type == CT_COMPLIST && !completed) {
-		x_print_expansions(nwords, words, is_command);
+		x_print_expansions(nwords, words, is_command, 0);
 		completed = 1;
 	}
 

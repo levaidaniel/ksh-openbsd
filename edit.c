@@ -292,7 +292,7 @@ static void	glob_path(int flags, const char *pat, XPtrV *wp,
 				const char *path);
 
 void
-x_print_expansions(int nwords, char *const *words, int is_command)
+x_print_expansions(int nwords, char *const *words, int is_command, int menu)
 {
 	int use_copy = 0;
 	int prefix_len;
@@ -330,7 +330,10 @@ x_print_expansions(int nwords, char *const *words, int is_command)
 	 */
 	x_putc('\r');
 	x_putc('\n');
-	pr_list(use_copy ? (char **) XPptrv(l) : words);
+	if (menu)
+		pr_menu(use_copy ? (char **) XPptrv(l) : words);
+	else
+		pr_list(use_copy ? (char **) XPptrv(l) : words);
 
 	if (use_copy)
 		XPfree(l); /* not x_free_words() */

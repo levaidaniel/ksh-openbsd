@@ -52,7 +52,7 @@ void	x_puts(const char *);
 bool	x_mode(bool);
 int	promptlen(const char *, const char **);
 int	x_do_comment(char *, int, int *);
-void	x_print_expansions(int, char *const *, int);
+void	x_print_expansions(int, char *const *, int, int);
 int	x_cf_glob(int, const char *, int, int, int *, int *, char ***, int *);
 int	x_longest_prefix(int , char *const *);
 int	x_basename(const char *, const char *);
