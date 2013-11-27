@@ -7,6 +7,8 @@
 #include "sh.h"
 #include <libgen.h>
 #include <ctype.h>
+#include <time.h>
+#include "strlcpy.h"
 
 
 /* Structure to keep track of the lexing state and the various pieces of info

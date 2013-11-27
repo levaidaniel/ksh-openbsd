@@ -16,10 +16,11 @@
 
 #include "sh.h"
 #include <sys/stat.h>
-#include <sys/queue.h>
+#include <bsd/sys/queue.h>
 #include <ctype.h>
 #include <locale.h>
 #include "edit.h"
+#include "strlcpy.h"
 
 static	Area	aedit;
 #define	AEDIT	&aedit		/* area for kill ring and macro defns */

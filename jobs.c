@@ -21,6 +21,19 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include "tty.h"
+#include "strlcpy.h"
+
+#ifndef CHILD_MAX
+# if defined(HAVE_SYSCONF) && defined(_SC_CHILD_MAX)
+#  define CHILD_MAX sysconf(_SC_CHILD_MAX)
+# else /* _SC_CHILD_MAX */
+#  ifdef _POSIX_CHILD_MAX
+#   define CHILD_MAX    ((_POSIX_CHILD_MAX) * 2)
+#  else /* _POSIX_CHILD_MAX */
+#   define CHILD_MAX    20
+#  endif /* _POSIX_CHILD_MAX */
+# endif /* _SC_CHILD_MAX */
+#endif /* !CHILD_MAX */
 
 /* Order important! */
 #define PRUNNING	0

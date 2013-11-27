@@ -16,10 +16,17 @@
 
 #include "sh.h"
 #include <sys/stat.h>
+#include "strlcat.h"
+#include "stdint.h"
 
 #ifdef HISTORY
 # include <sys/file.h>
 # include <sys/mman.h>
+
+#define timespeccmp(tsp, usp, cmp)			\
+	(((tsp)->tv_sec == (usp)->tv_sec) ?		\
+	    ((tsp)->tv_nsec cmp (usp)->tv_nsec) :	\
+	    ((tsp)->tv_sec cmp (usp)->tv_sec))
 
 static void	writehistfile(FILE *);
 static FILE    *history_open(int *);
@@ -603,7 +610,9 @@ history_open(int *changed)
 	FILE		*f = NULL;
 	struct stat	sb;
 
-	if ((fd = open(hname, O_RDWR | O_CREAT | O_EXLOCK, 0600)) == -1)
+	if ((fd = open(hname, O_RDWR | O_CREAT, 0600)) == -1)
+		return (NULL);
+	if (flock(fd, LOCK_EX) == -1)
 		return (NULL);
 	f = fdopen(fd, "r+");
 	if (f == NULL) {

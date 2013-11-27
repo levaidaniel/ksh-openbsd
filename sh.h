@@ -16,6 +16,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#define __USE_GNU /* needed for setresuid() and setresgid() */
 #include <unistd.h>
 #include <string.h>
 #include <stdarg.h>

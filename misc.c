@@ -7,7 +7,9 @@
 #include "sh.h"
 #include <ctype.h>
 #include <sys/param.h>	/* for MAXPATHLEN */
+#include <grp.h>
 #include "charclass.h"
+#include "strlcpy.h"
 
 short ctypes [UCHAR_MAX+1];	/* type bits for unsigned char */
 

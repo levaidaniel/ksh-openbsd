@@ -8,6 +8,7 @@
 #include <pwd.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include "strlcpy.h"
 
 /*
  * string expansion
@@ -697,7 +698,7 @@ varsub(Expand *xp, char *sp, char *word,
 	int c;
 	int state;	/* next state: XBASE, XARG, XSUB, XNULLSUB */
 	int stype;	/* substitution type */
-	int slen;
+	int slen = 0;
 	char *p;
 	struct tbl *vp;
 

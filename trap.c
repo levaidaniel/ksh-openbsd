@@ -5,6 +5,7 @@
  */
 
 #include "sh.h"
+#include "posix_signals.h" /* sys_signame[] */
 
 Trap sigtraps[NSIG + 1];
 
@@ -13,20 +14,29 @@ static struct sigaction Sigact_ign, Sigact_trap;
 void
 inittraps(void)
 {
-	int	i;
+	int	i, j;
 
-	/* Populate sigtraps based on sys_signame and sys_siglist. */
-	for (i = 0; i <= NSIG; i++) {
+	/* Populate sigtraps based on posix_signals.h */
+	for (i = 1; i < NSIG; i++) {
 		sigtraps[i].signal = i;
 		if (i == SIGERR_) {
 			sigtraps[i].name = "ERR";
 			sigtraps[i].mess = "Error handler";
 		} else {
-			sigtraps[i].name = sys_signame[i];
-			sigtraps[i].mess = sys_siglist[i];
+			for(j = 0; j < NSIG; j++) /* find the corresponding SIGNAL number's name in the sys_signame[] array */
+			{
+				if( sys_signame[j].val == sigtraps[i].signal ) /* we got a match */
+				{
+					sigtraps[i].name = sys_signame[j].name;
+					break;
+				}
+			}
+			sigtraps[i].mess = strsignal(sigtraps[i].signal);
 		}
 	}
+	sigtraps[SIGEXIT_].signal = SIGEXIT_;
 	sigtraps[SIGEXIT_].name = "EXIT";	/* our name for signal 0 */
+	sigtraps[SIGEXIT_].mess = "Exited";
 
 	sigemptyset(&Sigact_ign.sa_mask);
 	Sigact_ign.sa_flags = 0; /* interruptible */

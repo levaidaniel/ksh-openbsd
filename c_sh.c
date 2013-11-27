@@ -822,19 +822,13 @@ c_mknod(char **wp)
 {
 	int argc, optc, ismkfifo = 0, ret;
 	char **argv;
-	void *set = NULL;
-	mode_t mode = 0, oldmode = 0;
+	mode_t mode = 0, old_umask = -1;
 
 	while ((optc = ksh_getopt(wp, &builtin_opt, "m:")) != -1) {
 		switch (optc) {
 		case 'm':
-			set = setmode(builtin_opt.optarg);
-			if (set == NULL) {
-				bi_errorf("invalid file mode");
-				return 1;
-			}
-			mode = getmode(set, DEFFILEMODE);
-			free(set);
+			old_umask = umask(0);
+			mode |= strtoul(builtin_opt.optarg, NULL, 8);
 			break;
 		default:
 			goto usage;
@@ -851,18 +845,17 @@ c_mknod(char **wp)
 	} else if (argc != 4)
 		goto usage;
 
-	if (set)
-		oldmode = umask(0);
-	else
-		mode = DEFFILEMODE;
+	if (old_umask == -1)
+		mode |= DEFFILEMODE;
 
 	if (ismkfifo)
 		ret = domkfifo(argc, argv, mode);
 	else
 		ret = domknod(argc, argv, mode);
 
-	if (set)
-		umask(oldmode);
+	if (old_umask != -1)
+		umask(old_umask);
+
 	return ret;
 usage:
 	builtin_argv0 = NULL;
