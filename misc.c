@@ -140,6 +140,7 @@ const struct option options[] = {
 #else /* JOBS */
 	{ (char *) 0,	'm',		     0 }, /* so FMONITOR not ifdef'd */
 #endif /* JOBS */
+	{ "nobeep",	0,		OF_ANY },
 	{ "noclobber",	'C',		OF_ANY },
 	{ "noexec",	'n',		OF_ANY },
 	{ "noglob",	'f',		OF_ANY },

@@ -185,6 +185,7 @@ enum sh_flag {
 	FLOGIN,		/* -l: a login shell */
 	FMARKDIRS,	/* mark dirs with / in file name completion */
 	FMONITOR,	/* -m: job control monitoring */
+	FNOBEEP,	/* don't beep on bell */
 	FNOCLOBBER,	/* -C: don't overwrite existing files */
 	FNOEXEC,	/* -n: don't execute any commands */
 	FNOGLOB,	/* -f: don't do file globbing */
