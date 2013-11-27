@@ -33,7 +33,7 @@
 /*
 	Taken from misc-utils/kill.c in the util-linux-ng package.
 	ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/
- */
+*/
 
 #ifndef POSIX_SIGNALS_H
 #define POSIX_SIGNALS_H
