@@ -646,6 +646,12 @@ vi_insert(int ch)
 			return redo_insert(lastac - 1);
 
 	/* { Begin nonstandard vi commands */
+	case Ctrl('l'):
+		/* Use ANSI escape codes to clear the screen */
+		x_puts("\033[2J\033[0;0H");
+		redraw_line(0);
+		break;
+
 	case Ctrl('x'):
 		expand_word(0);
 		break;
