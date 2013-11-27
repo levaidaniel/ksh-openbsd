@@ -32,5 +32,5 @@ clean:
 	rm -f $(OBJS) $(PROG)
 
 check test:
-	/usr/bin/perl ${.CURDIR}/tests/th -s ${.CURDIR}/tests -p ./ksh -C \
+	/usr/bin/perl tests/th -s tests -p ./ksh -C \
 	    pdksh,sh,ksh,posix,posix-upu
