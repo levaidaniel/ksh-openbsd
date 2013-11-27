@@ -17,7 +17,7 @@ inittraps(void)
 	int	i, j;
 
 	/* Populate sigtraps based on posix_signals.h */
-	for (i = 1; i < NSIG; i++) {
+	for (i = 1; i <= NSIG; i++) {
 		sigtraps[i].signal = i;
 		if (i == SIGERR_) {
 			sigtraps[i].name = "ERR";
