@@ -582,6 +582,8 @@ x_cf_glob(int flags, const char *buf, int buflen, int pos, int *startp,
 	len = x_locate_word(buf, buflen, pos, startp, &is_command);
 	if (!(flags & XCF_COMMAND))
 		is_command = 0;
+	if (flags & XCF_FORCE_COMMAND)
+		is_command = 1;
 	/* Don't do command globing on zero length strings - it takes too
 	 * long and isn't very useful.  File globs are more likely to be
 	 * useful, so allow these.
