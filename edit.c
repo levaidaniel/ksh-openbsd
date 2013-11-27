@@ -627,14 +627,14 @@ add_glob(const char *str, int slen)
 
 	/*
 	 * If the pathname contains a wildcard (an unquoted '*',
-	 * '?', or '[') or parameter expansion ('$'), or a ~username
-	 * with no trailing slash, then it is globbed based on that
-	 * value (i.e., without the appended '*').
+	 * '?', or '[') or a ~username with no trailing slash,
+	 * then it is globbed based on that value (i.e., without
+	 * the appended '*').
 	 */
 	for (s = toglob; *s; s++) {
 		if (*s == '\\' && s[1])
 			s++;
-		else if (*s == '*' || *s == '[' || *s == '?' || *s == '$' ||
+		else if ((*s == '*' || *s == '[' || *s == '?') ||
 		    (s[1] == '(' /*)*/ && strchr("+@!", *s)))
 			break;
 		else if (*s == '/')
