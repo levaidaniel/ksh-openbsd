@@ -1132,7 +1132,7 @@ vi_cmd(int argcnt, const char *cmd)
 				return -1;
 		case '\\':			/* at&t ksh */
 		case Ctrl('f'):			/* Nonstandard vi/ksh */
-			complete_word(1, argcnt, 0);
+			complete_word(1, argcnt, XCF_FORCE_COMMAND);
 			break;
 
 
