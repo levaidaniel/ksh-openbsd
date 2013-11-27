@@ -1956,6 +1956,7 @@ complete_word(int command, int count, int flags)
 	int match_len;
 	int is_unique;
 	int is_command;
+	int pos;
 
 	/* Undo previous completion */
 	if (command == 0 && expanded == COMPLETE && buf) {
@@ -1974,11 +1975,23 @@ complete_word(int command, int count, int flags)
 		buf = 0;
 	}
 
+	/* XXX: hack. When we enter command mode, the cursor is moved
+	 * one position left. This means that the space at the end is
+	 * eaten and file completion becomes command completion.
+	 * (see x_locate_word() for more on this)
+	 */
+	pos = es->cursor;
+	if (command) {
+		pos += (isspace(es->cbuf[es->cursor]) ? 1 : 0);
+		if (pos > es->linelen)
+			pos = es->linelen;
+	}
+
 	/* XCF_FULLPATH for count 'cause the menu printed by print_expansions()
 	 * was done this way.
 	 */
 	nwords = x_cf_glob(XCF_COMMAND_FILE | (count ? XCF_FULLPATH : 0) | flags,
-	    es->cbuf, es->linelen, es->cursor,
+	    es->cbuf, es->linelen, pos,
 	    &start, &end, &words, &is_command);
 	if (nwords == 0) {
 		vi_error();
