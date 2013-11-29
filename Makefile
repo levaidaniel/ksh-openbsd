@@ -1,10 +1,10 @@
-ifdef ${PREFIX}
-PREFIX =	${PREFIX}
+ifdef $(PREFIX)
+PREFIX =	$(PREFIX)
 else
 PREFIX =	/usr
 endif
-BINDIR = 	${DESTDIR}/bin
-MANDIR =	${DESTDIR}${PREFIX}/man
+BINDIR = 	$(DESTDIR)/bin
+MANDIR =	$(DESTDIR)$(PREFIX)/man
 
 PROG =	ksh
 SRCS =	alloc.c c_ksh.c c_sh.c c_test.c c_ulimit.c edit.c emacs.c eval.c \
