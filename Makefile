@@ -20,7 +20,7 @@ all: $(PROG)
 
 CFLAGS+=-Wall
 $(PROG): $(OBJS)
-	gcc $(OBJS) -lbsd -o ksh
+	$(CC) $(OBJS) -lbsd -o ksh
 
 install:
 	install -m755 -d $(BINDIR)
