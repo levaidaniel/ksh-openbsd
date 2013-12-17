@@ -1,4 +1,4 @@
-/*	$OpenBSD: var.c,v 1.35 2013/04/05 01:31:30 tedu Exp $	*/
+/*	$OpenBSD: var.c,v 1.36 2013/12/17 16:37:06 deraadt Exp $	*/
 
 #include "sh.h"
 #include <time.h>
@@ -167,7 +167,7 @@ global(const char *n)
 	/* Check to see if this is an array */
 	n = array_index_calc(n, &array, &val);
 	h = hash(n);
-	c = n[0];
+	c = (unsigned char)n[0];
 	if (!letter(c)) {
 		if (array)
 			errorf("bad substitution");
@@ -443,7 +443,7 @@ getint(struct tbl *vp, long int *nump, bool arith)
 			base = 8;
 		have_base++;
 	}
-	for (c = *s++; c ; c = *s++) {
+	for (c = (unsigned char)*s++; c ; c = (unsigned char)*s++) {
 		if (c == '-') {
 			neg++;
 		} else if (c == '#') {
@@ -519,7 +519,7 @@ formatstr(struct tbl *vp, const char *s)
 		if (vp->flag & RJUST) {
 			const char *q = s + olen;
 			/* strip trailing spaces (at&t ksh uses q[-1] == ' ') */
-			while (q > s && isspace(q[-1]))
+			while (q > s && isspace((unsigned char)q[-1]))
 				--q;
 			slen = q - s;
 			if (slen > vp->u2.field) {
@@ -532,7 +532,7 @@ formatstr(struct tbl *vp, const char *s)
 				vp->u2.field - slen, null, slen, s);
 		} else {
 			/* strip leading spaces/zeros */
-			while (isspace(*s))
+			while (isspace((unsigned char)*s))
 				s++;
 			if (vp->flag & ZEROFIL)
 				while (*s == '0')
@@ -545,12 +545,12 @@ formatstr(struct tbl *vp, const char *s)
 
 	if (vp->flag & UCASEV_AL) {
 		for (q = p; *q; q++)
-			if (islower(*q))
-				*q = toupper(*q);
+			if (islower((unsigned char)*q))
+				*q = toupper((unsigned char)*q);
 	} else if (vp->flag & LCASEV) {
 		for (q = p; *q; q++)
-			if (isupper(*q))
-				*q = tolower(*q);
+			if (isupper((unsigned char)*q))
+				*q = tolower((unsigned char)*q);
 	}
 
 	return p;
