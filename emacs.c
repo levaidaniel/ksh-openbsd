@@ -1,4 +1,4 @@
-+/*	$OpenBSD: emacs.c,v 1.48 2013/12/17 16:37:05 deraadt Exp $	*/
+/*	$OpenBSD: emacs.c,v 1.48 2013/12/17 16:37:05 deraadt Exp $	*/
 
 /*
  *  Emacs-like command line editing and history
