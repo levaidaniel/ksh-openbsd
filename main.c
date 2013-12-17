@@ -12,7 +12,7 @@
 
 /* on Linux we do not have _PW_NAME_LEN, but libc6 allows us 32 character usernames */
 #ifndef _PW_NAME_LEN 
-# define _PW_NAME_LEN 31
+# define _PW_NAME_LEN 32
 #endif
 extern char **environ;
 
