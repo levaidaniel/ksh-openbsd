@@ -8,7 +8,6 @@
 #include <pwd.h>
 #include <dirent.h>
 #include <sys/stat.h>
-#include "strlcpy.h"
 
 /*
  * string expansion

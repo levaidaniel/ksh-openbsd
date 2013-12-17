@@ -10,11 +10,11 @@ PROG =	ksh
 SRCS =	alloc.c c_ksh.c c_sh.c c_test.c c_ulimit.c edit.c emacs.c eval.c \
 	exec.c expr.c history.c io.c jobs.c lex.c mail.c main.c mknod.c \
 	misc.c path.c shf.c syn.c table.c trap.c tree.c tty.c var.c \
-	version.c vi.c strlcpy.c strlcat.c
+	version.c vi.c
 OBJS =	alloc.o c_ksh.o c_sh.o c_test.o c_ulimit.o edit.o emacs.o eval.o \
 	exec.o expr.o history.o io.o jobs.o lex.o mail.o main.o mknod.o \
 	misc.o path.o shf.o syn.o table.o trap.o tree.o tty.o var.o \
-	version.o vi.o strlcpy.o strlcat.o
+	version.o vi.o
 
 CFLAGS +=	-Wall
 LDADD +=	-lbsd

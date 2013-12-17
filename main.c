@@ -9,7 +9,6 @@
 #include "sh.h"
 #include <sys/stat.h>
 #include <pwd.h>
-#include "strlcpy.h"
 
 /* on Linux we do not have _PW_NAME_LEN, but libc6 allows us 32 character usernames */
 #ifndef _PW_NAME_LEN 

@@ -21,7 +21,6 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include "tty.h"
-#include "strlcpy.h"
 
 #ifndef CHILD_MAX
 # if defined(HAVE_SYSCONF) && defined(_SC_CHILD_MAX)

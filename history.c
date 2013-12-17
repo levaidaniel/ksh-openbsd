@@ -16,7 +16,6 @@
 
 #include "sh.h"
 #include <sys/stat.h>
-#include "strlcat.h"
 #include "stdint.h"
 
 #ifdef HISTORY

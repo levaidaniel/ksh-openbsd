@@ -20,7 +20,6 @@
 #include <ctype.h>
 #include <locale.h>
 #include "edit.h"
-#include "strlcpy.h"
 
 static	Area	aedit;
 #define	AEDIT	&aedit		/* area for kill ring and macro defns */

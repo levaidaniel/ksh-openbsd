@@ -13,7 +13,6 @@
 #include <ctype.h>
 #include <sys/stat.h>		/* completion */
 #include "edit.h"
-#include "strlcpy.h"
 
 #define CMDLEN		2048
 #define Ctrl(c)		(c&0x1f)

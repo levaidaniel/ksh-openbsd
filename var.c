@@ -5,7 +5,6 @@
 #include "ksh_limval.h"
 #include <sys/stat.h>
 #include <ctype.h>
-#include "strlcpy.h"
 
 /*
  * Variables
