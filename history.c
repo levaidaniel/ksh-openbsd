@@ -611,8 +611,10 @@ history_open(int *changed)
 
 	if ((fd = open(hname, O_RDWR | O_CREAT, 0600)) == -1)
 		return (NULL);
-	if (flock(fd, LOCK_EX) == -1)
+	if (flock(fd, LOCK_EX) == -1) {
+		close(fd);
 		return (NULL);
+	}
 	f = fdopen(fd, "r+");
 	if (f == NULL) {
 		close(fd);
