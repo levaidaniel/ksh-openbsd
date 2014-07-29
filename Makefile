@@ -5,6 +5,7 @@ PREFIX =	/usr
 endif
 BINDIR = 	$(DESTDIR)/bin
 MANDIR =	$(DESTDIR)$(PREFIX)/man
+TMP ?= /tmp
 
 PROG =	ksh
 SRCS =	alloc.c c_ksh.c c_sh.c c_test.c c_ulimit.c edit.c emacs.c eval.c \
@@ -26,8 +27,8 @@ $(PROG): $(OBJS)
 all: $(PROG)
 
 check test:
-	/usr/bin/perl tests/th -s tests -p ./ksh -C \
-	    pdksh,sh,ksh,posix,posix-upu
+	/usr/bin/perl tests/th -s tests -p ./ksh -T $(TMP) \
+		-C pdksh,sh,ksh,posix,posix-upu
 
 install:
 	install -m755 -d $(BINDIR)
