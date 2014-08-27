@@ -1,0 +1,38 @@
+fb19ebc sync w/ upstream ksh.1 r1.152 and sh.1 r1.97
+05d9aff io.c: sync with upstream r1.25
+4c89c75 tty.c: sync from upstream r1.10
+db7e0aa io.c: sync from upstream r1.24
+bc5c77f Allow specifying $TMP for the tests.
+543dd96 Some man page semantics from upstream.
+a6c5b83 Sync with upstream (ksh.1, sh.1)
+08b999b Sync with upstream. Man page fixes.
+afc286f Plug a file desc. leak in history_open(). This is ...
+22a88a6 Sync with upstream (var.c, 1.38):
+35ccfeb Fix a misplaced cast in the recent ctype changes in vi.c
+8b70806 Remove limit on the max array index. From upstream.
+c1ac370 Add tags to .gitignore
+8541c88 _PW_NAME_LEN should be 32, not 31. The closing NUL is accounted for in username[].
+1dad541 Further reduce the diff against upstream, import the whitespace changes by sobrado@.
+1b03548 Don't include a copy of strl{cat,cpy}, but use the one in libbsd (we're already depending on it anyway).
+0f76f2f Remove trailing '+' from the tag at the top of the file. (copy-pasto...)
+c46299a Sync with latest OpenBSD sources:
+0ae8bcf Use parenthesis instead of curly brackets in Makefile.
+3223171 Tidy up Makefile.
+2c2b622 Don't commit to gcc in the Makefile, use the CC env. var.
+e1124ed Add the ksh binary.
+02a6036 Remove the last flaky heredoc.t test 'heredoc-tmpfile-8'.
+540babc Make `make check` work.
+b1aa6d6 Fix sigtraps[] population with signals.
+b228736 Dangling whitespace.
+d74f95b The Linux specific stuff.
+f5891f6 Add nobeep sh opt.
+b610de7 New ksh history implementation.
+4d4a6f7 Remove $ from the list of characters blocking * addition.
+79e234f ksh/vi: compensate for cursor move on command mode
+f1a39c2 ksh: print expansions like a "menu" (with numbers) in vi mode
+e654ca2 ksh/vi: make Ctrl-f in command mode behave the same as in insert.
+52a3706 ksh/vi: Ctrl-l in insert mode to clear the screen.
+cc67a91 Remove disabled FP support.
+f2b126b ksh/vi mode: complete as command on Ctrl-f.
+08b5c99 Add .gitignore
+bebc5b3 Import OpenBSD ksh from -current, as of 2013.11.27.
