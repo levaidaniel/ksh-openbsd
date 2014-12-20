@@ -1,4 +1,10 @@
-5920910 Consolidate the Change[lL]og files and trim other docs.
+cc2e525 Sync. r1.98 + r1.99 sh1, r1.154 + r1.155 ksh.1
+6c05aba Sync. r1.40 var.c
+a73a1b3 Sync. history.c r1.40
+dc95fa6 Sync. expr.c r1.24
+cb6f332 c_sh.c: sync with upstream r1.45
+2702943 Update Changelog.
+579dfa3 Consolidate the Change[lL]og files and trim other docs.
 fb19ebc sync w/ upstream ksh.1 r1.152 and sh.1 r1.97
 05d9aff io.c: sync with upstream r1.25
 4c89c75 tty.c: sync from upstream r1.10
