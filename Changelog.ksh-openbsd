@@ -1,3 +1,5 @@
+fefea11 sync emacs.c r1.50 and ksh.1 r1.159
+bb86c73 Update Changelog.ksh-openbsd
 74f3b55 Install sh.1, and udpate man pages to use pd{sh,ksh} names.
 e8b8449 sh.1: sync w/ r1.118
 a87a051 ksh.1: sync w/ r1.158
