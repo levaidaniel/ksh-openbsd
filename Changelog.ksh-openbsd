@@ -1,3 +1,13 @@
+74f3b55 Install sh.1, and udpate man pages to use pd{sh,ksh} names.
+e8b8449 sh.1: sync w/ r1.118
+a87a051 ksh.1: sync w/ r1.158
+6a45bbe misc.c: sync w/ r1.40
+054e1dc edit.c: sync w/ r1.40
+edd8d26 emacs.c: sync r1.49
+b4ce3a1 main.c: sync r1.55
+b0e4705 sync with upstream: sh.1 to r1.100 and ksh.1 to r1.156
+6ce8160 misc.c: sync with upstream r1.39
+e35133a Update Changelog.
 cc2e525 Sync. r1.98 + r1.99 sh1, r1.154 + r1.155 ksh.1
 6c05aba Sync. r1.40 var.c
 a73a1b3 Sync. history.c r1.40
