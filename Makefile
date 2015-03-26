@@ -35,6 +35,7 @@ install:
 	install -m755 --strip --no-target-directory ksh $(BINDIR)/pdksh
 	install -m755 -d $(MANDIR)/man1
 	install -m644 --no-target-directory ksh.1 $(MANDIR)/man1/pdksh.1
+	install -m644 --no-target-directory sh.1 $(MANDIR)/man1/pdksh-sh.1
 
 clean:
 	rm -f $(OBJS) $(PROG)
