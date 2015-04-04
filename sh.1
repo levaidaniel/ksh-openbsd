@@ -1,4 +1,4 @@
-.\"	$OpenBSD: sh.1,v 1.121 2015/03/26 10:51:15 jmc Exp $
+.\"	$OpenBSD: sh.1,v 1.126 2015/03/31 21:23:34 jmc Exp $
 .\"
 .\" Copyright (c) 2015 Jason McIntyre <jmc@openbsd.org>
 .\"
@@ -14,7 +14,7 @@
 .\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: March 26 2015 $
+.Dd $Mdocdate: March 31 2015 $
 .Dt SH 1
 .Os
 .Sh NAME
@@ -74,7 +74,7 @@ They can also be set or unset using the
 .Ic set
 command.
 Some options have equivalent long names,
-where indicated,
+indicated at the start of the description,
 which can be used with the
 .Fl o
 option.
@@ -107,7 +107,7 @@ For pipelines and
 and
 .Cm ||
 constructs, only exit if the last component fails.
-Errexit is ignored for
+errexit is ignored for
 .Ic while ,
 .Ic until ,
 .Ic if ,
@@ -697,7 +697,7 @@ in a format suitable to be reinput to the shell,
 a command suitable to achieve the current option settings.
 .Pp
 Any arguments are assigned to the positional parameters,
-with the variable
+with the special parameter
 .Sq #
 set to the number of positional parameters.
 The sequence
@@ -753,7 +753,7 @@ or an integer,
 reset
 .Ar signal
 to its default value;
-if it is null
+if it is empty
 .Pq Qq ,
 ignore
 .Ar signal .
@@ -774,7 +774,7 @@ or number.
 Set the file mode creation mask to
 .Ar mask .
 The creation mask determines the default permissions
-a newly created file will have.
+a newly created file or directory will have.
 If
 .Ar mask
 is not specified,
@@ -1203,7 +1203,7 @@ Firstly, tilde expansion occurs on words beginning with the
 .Sq ~
 character.
 Any characters following the tilde,
-up to the next colon or slash, if any,
+up to the next colon, slash, or blank,
 are taken as a login name
 and substituted with that user's home directory,
 as defined in
@@ -1240,14 +1240,14 @@ If the colon is omitted,
 .Ar word
 is substituted only if
 .Ar parameter
-is unset (not if it is null).
+is unset (not if it is empty).
 .Bl -tag -width Ds
 .It $ Ns Brq Ar parameter Ns :- Ns Op Ar word
 Substitute
 .Ar parameter .
 If
 .Ar parameter
-is unset or null,
+is unset or empty,
 substitute
 .Ar word .
 .It $ Ns Brq Ar parameter Ns := Ns Op Ar word
@@ -1255,7 +1255,7 @@ Substitute
 .Ar parameter .
 If
 .Ar parameter
-is unset or null,
+is unset or empty,
 first assign the value of
 .Ar word
 to
@@ -1265,7 +1265,7 @@ Substitute
 .Ar parameter .
 If
 .Ar parameter
-is unset or null,
+is unset or empty,
 the result of the expansion of
 .Ar word
 is written to standard error
@@ -1281,8 +1281,8 @@ Substitute
 .Ar word .
 If
 .Ar parameter
-is unset or null,
-substitute null.
+is unset or empty,
+substitute the empty string.
 .It $ Ns Brq # Ns Ar parameter
 The length, in characters, of
 .Ar parameter .
@@ -1373,7 +1373,7 @@ greater than, and greater than or equal to, respectively.
 The result is 1 if true, or 0 otherwise.
 .It == !=
 Equal (the result is 1 if both arguments are equal, and 0 otherwise)
-and not equal (the result is 1 if both arguments are non-zero, and 0 otherwsie),
+and not equal (the result is 1 if both arguments are non-zero, and 0 otherwise),
 respectively.
 .It &
 Bitwise AND.
@@ -1425,7 +1425,7 @@ and
 .Aq newline
 is used; if the value of
 .Ev IFS
-is null, no field splitting is performed.
+is empty, no field splitting is performed.
 .Pp
 After field splitting,
 the shell matches filename patterns.
@@ -1757,10 +1757,12 @@ or otherwise the exit status of the last command executed.
 A
 .Em while loop
 continuously executes a set of commands
-as long as the command has a zero exit status.
+as long as the command or command list being tested in
+.Ar condition
+has a zero exit status.
 Its format is:
 .Bd -unfilled -offset indent
-.No while Ar command
+.No while Ar condition
 do
 .No "   " Ar command
 .No "   " Ar ...
@@ -1778,10 +1780,12 @@ or otherwise the exit status of the last command executed.
 An
 .Em until loop
 continuously executes a set of commands
-as long as the command has a non-zero exit status.
+as long as the command or command list being tested in
+.Ar condition
+has a non-zero exit status.
 Its format is:
 .Bd -unfilled -offset indent
-.No until Ar command
+.No until Ar condition
 do
 .No "   " Ar command
 .No "   " Ar ...
@@ -1825,25 +1829,25 @@ or otherwise the exit status of the last command executed.
 .Pp
 An
 .Em if conditional
-is used to execute commands depending on the exit status of other commands.
+is used to execute commands depending on the exit status of the command or
+command list being tested.
 Its format is:
 .Bd -unfilled -offset indent
-.No if Ar command
+.No if Ar conditional
 then
 .No "   " Ar command
-.Pp
-.No elif Ar command
+.No "   " Ar ...
+.No elif Ar conditional
 then
 .No "   " Ar command
-.Ar ...
-.Pp
-.No else Ar command
+.No "   " Ar ...
+.No else
+.No "   " Ar command
+.No "   " Ar ...
 fi
 .Ed
 .Pp
-Firstly the
-.Ar command
-following
+Firstly the command(s) following
 .Qq if
 is executed;
 if its exit status is zero,
@@ -1873,6 +1877,7 @@ The
 and
 .Qq else
 blocks are optional.
+.Pp
 Multiple commands may be given by grouping them in lists,
 as described above,
 or by separating them with newlines.
@@ -1884,14 +1889,14 @@ block
 or otherwise the exit status of the last command executed.
 .Pp
 Functions allow the user to define a group of commands,
-executed whenever the function name is invoked.
+executed whenever the function is invoked.
 Its format is:
 .Bd -unfilled -offset indent
 .Ar function Ns () Ar command-list
 .Ed
 .Pp
 The above simply defines a function;
-nothing is executed until the function name is invoked.
+nothing is executed until the function is invoked.
 Commands may specify redirections
 and positional parameters are changed,
 for the duration of the function,
@@ -1953,7 +1958,7 @@ So "1 2" "3" is output as one parameter, "1 2 3".
 .It #
 The number of positional parameters.
 .It ?
-The exit status of the most recent pipeline.
+The exit status of the most recent command.
 .It -
 The current shell options.
 .It $
