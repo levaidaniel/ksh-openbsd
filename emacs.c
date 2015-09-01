@@ -1,4 +1,4 @@
-/*	$OpenBSD: emacs.c,v 1.50 2015/03/25 12:10:52 jca Exp $	*/
+/*	$OpenBSD: emacs.c,v 1.51 2015/09/01 13:12:31 tedu Exp $	*/
 
 /*
  *  Emacs-like command line editing and history
@@ -1164,7 +1164,7 @@ x_push(int nchars)
 {
 	char	*cp = str_nsave(xcp, nchars, AEDIT);
 	if (killstack[killsp])
-		afree((void *)killstack[killsp], AEDIT);
+		afree(killstack[killsp], AEDIT);
 	killstack[killsp] = cp;
 	killsp = (killsp + 1) % KILLSIZE;
 }
@@ -1323,8 +1323,7 @@ static void
 kb_del(struct kb_entry *k)
 {
 	TAILQ_REMOVE(&kblist, k, entry);
-	if (k->args)
-		free(k->args);
+	free(k->args);
 	afree(k, AEDIT);
 }
 
