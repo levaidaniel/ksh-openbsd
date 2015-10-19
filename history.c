@@ -1,9 +1,7 @@
-/*	$OpenBSD: history.c,v 1.44 2015/09/17 21:39:54 nicm Exp $	*/
+/*	$OpenBSD: history.c,v 1.45 2015/10/08 15:54:59 tedu Exp $	*/
 
 /*
  * command history
- *
- * only implements in-memory history.
  */
 
 /*
