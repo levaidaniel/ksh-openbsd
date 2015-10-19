@@ -17,7 +17,7 @@ OBJS =	alloc.o c_ksh.o c_sh.o c_test.o c_ulimit.o edit.o emacs.o eval.o \
 	misc.o path.o shf.o syn.o table.o trap.o tree.o tty.o var.o \
 	version.o vi.o
 
-CFLAGS +=	-Wall
+CFLAGS +=	-Wall -DMKNOD
 LDADD +=	-lbsd
 
 $(PROG): $(OBJS)
