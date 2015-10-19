@@ -1,4 +1,4 @@
-/*	$OpenBSD: main.c,v 1.64 2015/10/16 14:45:16 deraadt Exp $	*/
+/*	$OpenBSD: main.c,v 1.65 2015/10/17 18:26:24 mmcc Exp $	*/
 
 /*
  * startup, main loop, environments and error handling
@@ -9,6 +9,7 @@
 #include "sh.h"
 #include <sys/stat.h>
 #include <pwd.h>
+#include <paths.h>
 
 /* on Linux we do not have _PW_NAME_LEN, but libc6 allows us 32 character usernames */
 #ifndef _PW_NAME_LEN 
