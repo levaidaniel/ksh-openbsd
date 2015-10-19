@@ -1,4 +1,4 @@
-/*	$OpenBSD: history.c,v 1.45 2015/10/08 15:54:59 tedu Exp $	*/
+/*	$OpenBSD: history.c,v 1.46 2015/10/08 16:41:26 tedu Exp $	*/
 
 /*
  * command history
