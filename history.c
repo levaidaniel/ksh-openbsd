@@ -1,4 +1,4 @@
-/*	$OpenBSD: history.c,v 1.41 2015/09/01 13:12:31 tedu Exp $	*/
+/*	$OpenBSD: history.c,v 1.42 2015/09/15 18:15:05 tedu Exp $	*/
 
 /*
  * command history
@@ -48,10 +48,10 @@ c_fc(char **wp)
 {
 	struct shf *shf;
 	struct temp *tf = NULL;
-	char *p, *editor = (char *) 0;
+	char *p, *editor = NULL;
 	int gflag = 0, lflag = 0, nflag = 0, sflag = 0, rflag = 0;
 	int optc;
-	char *first = (char *) 0, *last = (char *) 0;
+	char *first = NULL, *last = NULL;
 	char **hfirst, **hlast, **hp;
 
 	if (!Flag(FTALKING_I)) {
@@ -108,7 +108,7 @@ c_fc(char **wp)
 
 	/* Substitute and execute command */
 	if (sflag) {
-		char *pat = (char *) 0, *rep = (char *) 0;
+		char *pat = NULL, *rep = NULL;
 
 		if (editor || lflag || nflag || rflag) {
 			bi_errorf("can't use -e, -l, -n, -r with -s (-e -)");
@@ -273,7 +273,7 @@ hist_execute(char *cmd)
 		if ((q = strchr(p, '\n'))) {
 			*q++ = '\0'; /* kill the newline */
 			if (!*q) /* ignore trailing newline */
-				q = (char *) 0;
+				q = NULL;
 		}
 		histsave(++(hist_source->line), p, 1);
 
