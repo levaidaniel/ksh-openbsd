@@ -1,4 +1,4 @@
-/*	$OpenBSD: sh.h,v 1.49 2015/10/23 01:14:07 mmcc Exp $	*/
+/*	$OpenBSD: sh.h,v 1.50 2015/10/23 01:33:36 mmcc Exp $	*/
 
 /*
  * Public Domain Bourne/Korn shell
@@ -580,7 +580,6 @@ void	set_current_wd(char *);
 /* syn.c */
 void	initkeywords(void);
 struct op * compile(Source *);
-/* trace.c */
 /* trap.c */
 void	inittraps(void);
 void	alarm_init(void);
@@ -621,5 +620,4 @@ void	change_random(void);
 int	array_ref_len(const char *);
 char *	arrayname(const char *);
 void    set_array(const char *, int, char **);
-/* version.c */
 /* vi.c: see edit.h */
