@@ -33,7 +33,7 @@ while true;do
 	LOG_MESSAGE=''
 	for line in $(< "${REMOTE_DIR}"/patchsets/"${PATCHSET}".patch);do
 		# exit
-		if echo "${line}" |egrep -q -e '^Index: ';then
+		if echo "${line}" |egrep -q -e '^Index: '  ||  echo "${line}" |egrep -q -e '^--- ';then
 			break
 		fi
 
