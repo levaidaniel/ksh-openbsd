@@ -1,3 +1,97 @@
+7db2671 aresize() -> areallocarray()
+2a1329e Remove two casts of void* return types.
+ef1b5cb Drop a needless cast of a void *.
+7e1b938 Add uses of areallocarray(). mksh and Bitrig ksh already have similar
+b93e85e zap trailing whitespace;
+c61e681 Try to clarify the fc section a tad; fc apprently stands for "fix command".
+c63c504 'fc -e -' is deprecated in favor of 'fc -s', so update the built-in alias
+b7ebaa9 Remove three strange and unused preproc defines. Submitted by Ilya
+9ee6425 Sometimes there's no ^Index: line to designate the diff's start.
+effbf86 Remove two comments listing functionless files. Trivial, no functional
+af51b37 proto.h contains many function prototypes. It's apparently separate from
+5cab7ff Final removal of EXTERN.
+3f8336c Enable large file support during compile
+e05bf85 Remove a couple of unhelpful defines.
+20762d3 Don't bother casting NULL.
+814ac65 Assign pointer to NULL rather than 0.
+5ad4b99 Penultimate commit to remove EXTERN.
+778a768 Add some helper scripts for my sake.
+2e695d6 Remove the define NOT, replace it with '!'. No binary change.
+26e2592 A little style(9) for sh.h includes
+e34e82b Move stddef.h include from sh.h to the file that uses it.
+4e20099 Move string.h include from sh.h to the files that use it.
+da007db Move limits.h include from sh.h to the files that actually need it. No
+029758b More removal of EXTERN.
+76aa6b6 Apply style(9) to header includes.
+8725b91 Move more EXTERN-defined globals from sh.h.
+2898331 add missing underscore; from theo buehler
+5e2cca7 Drop two useless defines.
+d948132 Move a system header include from the global header (sh.h) into the
+6a668c9 Change allocarray() to areallocarray(), a full reallocarray clone. All
+c090cc6 Copy alloc()'s overflow check to aresize().
+c753821 Change x_do_ins()'s arg type from int to size_t for correctness's sake,
+be78d4b Move the overflow check to alloc() so that the link struct overhead can
+5a621f7 Cast iscntrl()'s arg to unsigned char.
+93c188b wrap a long line
+2761d32 Implement real "flock" request and add it to userland programs that
+57f9637 Add allocarray(), an overflow-safe allocation function.
+c058a0f Remove three distracting aliases for NULL.
+b4e83a0 Remove an unused included header (sys/stat.h).
+48b95be Introduce an unsigned char variable for the ctype function calls.
+5044fa4 indent the builtin text a little, for naddy;
+3ae05cb Add a define for the invalid state, from mksh via Michael McConville.
+7d7a0f6 normalize a few more tame request orderings, to help review
+b6d4fcc Replace calls to x_emacs_putbuf() with x_do_ins() since all
+0284f80 Unused macros; from Michael McConville.
+a1121da Move more declarations out of proto.h into better headers, from Michael
+ebd2da1 ksh can run with pledge "stdio rpath wpath cpath getpw fattr proc exec tty"
+09088e5 Lexer states are not needed outside of lex.c.
+9174e63 remove null check before afree. from Michael McConville
+60e0203 pare down the readme so as to not imply we are tracking upstream.
+1253379 stop trying to gift history files to the original owner. instead, don't
+e8794ff little cleanup from Michael McConville, mostly related to stale comments.
+ba9a741 Remove an old and broken test snippet, from Michael McConville. ok millert
+1d9e264 Drop the silly and distracting ACCEPT and REJECT macros, from Michael
+5c6f2e1 Move tree.c protos into tree.h, from Michael McConville, ok millert
+3675068 Remove EXTERN from lex.h and put the definitions in lex.c, from Michael
+59343ec Remove EXTERN from table.h and put the definitions in table.c, from
+f37b725 fix error message for csh-history. the lexer needs to back up more.
+8bbcc0d lint is dead: delete the trivial uses of /* VARARGS[0-9]+ */
+efa92b5 Remove EXTERN from edit.[ch], from Michael McConville.
+9aac0f4 Remove EXTERN from tty.[ch], from Michael McConville. No binary change.
+35b75b4 Make errorf() and bi_errorf() handle a NULL argument.
+da2c894 Last of the (thing *)0 -> NULL, from Michael McConville. No binary
+1f472e7 More (foo *)0 -> NULL, from Michael McConville. No binary change.
+1f7e361 Remove unnecessary casts, from Michael McConville. No binary change.
+02d2dc5 Expand the one use of POP_INT() macro into if()s and fix some errors
+d8480ea correct spelling of NULL from (char *)0. from Michael McConville.
+cdd5d73 stop abusing null (the variable) for an empty string in output formats.
+b9f65b9 Avoid .Ns right after .Pf, it's pointless.
+6b7c86e SIZEOF_INT is no longer needed.
+f22f1b9 Replace Tflag typedef with just int; ok tedu
+2291658 these files are a combination of old, lies, and old lies. zap.
+a757d43 Apply the ancient art of tedu to ksh_limval.h. ok guenther
+4803ef8 directions for using autoconf cannot be relevant.
+ec31662 move tty_close up a bit so we can use it.
+076c6c6 zap unused FP support. from Michael McConville. ok nicm
+5d5fb0a Remove redundant assignment
+204d1fe Replace newline and space defines by "\n" and " " directly, from Michael
+36253bc Remove INT32 define and just use int, from Martijn van Duren and Michael
+b063a0c Kill another superfluous variable initialization; from Michael McConville.
+0577b24 Remove superfluous variable initialization; from Michael McConville.
+045ad3e path.c: sync w/ r1.13
+a341c29 main.c: sync w/ r1.56
+9646925 "remove casts and null checks before free."
+dd599b0 var.c: sync w/ r1.42
+764b7e5 ksh.1: sync w/ 1.160
+4c65d07 lex.c: sync w/ r1.50
+6fc3ef9 c_sh.c: sync w/ r1.46
+95835bf sh.1: sync w/ r1.127:1.128
+96039b3 sync: exec.c r1.51, jobs.c r1.41
+a22509c var.c sync r1.41
+a75d8e8 sh.1: sync w/ r1.122:1.126
+372e468 sh.1: sync w/ r1.119:1.121
+c4c7297 Update Changelog.ksh-openbsd
 fefea11 sync emacs.c r1.50 and ksh.1 r1.159
 bb86c73 Update Changelog.ksh-openbsd
 74f3b55 Install sh.1, and udpate man pages to use pd{sh,ksh} names.
