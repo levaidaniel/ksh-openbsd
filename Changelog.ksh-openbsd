@@ -1,151 +1,153 @@
-7db2671 aresize() -> areallocarray()
-2a1329e Remove two casts of void* return types.
-ef1b5cb Drop a needless cast of a void *.
-7e1b938 Add uses of areallocarray(). mksh and Bitrig ksh already have similar
-b93e85e zap trailing whitespace;
-c61e681 Try to clarify the fc section a tad; fc apprently stands for "fix command".
-c63c504 'fc -e -' is deprecated in favor of 'fc -s', so update the built-in alias
-b7ebaa9 Remove three strange and unused preproc defines. Submitted by Ilya
-9ee6425 Sometimes there's no ^Index: line to designate the diff's start.
-effbf86 Remove two comments listing functionless files. Trivial, no functional
-af51b37 proto.h contains many function prototypes. It's apparently separate from
-5cab7ff Final removal of EXTERN.
-3f8336c Enable large file support during compile
-e05bf85 Remove a couple of unhelpful defines.
-20762d3 Don't bother casting NULL.
-814ac65 Assign pointer to NULL rather than 0.
-5ad4b99 Penultimate commit to remove EXTERN.
-778a768 Add some helper scripts for my sake.
-2e695d6 Remove the define NOT, replace it with '!'. No binary change.
-26e2592 A little style(9) for sh.h includes
-e34e82b Move stddef.h include from sh.h to the file that uses it.
-4e20099 Move string.h include from sh.h to the files that use it.
-da007db Move limits.h include from sh.h to the files that actually need it. No
-029758b More removal of EXTERN.
-76aa6b6 Apply style(9) to header includes.
-8725b91 Move more EXTERN-defined globals from sh.h.
-2898331 add missing underscore; from theo buehler
-5e2cca7 Drop two useless defines.
-d948132 Move a system header include from the global header (sh.h) into the
-6a668c9 Change allocarray() to areallocarray(), a full reallocarray clone. All
-c090cc6 Copy alloc()'s overflow check to aresize().
-c753821 Change x_do_ins()'s arg type from int to size_t for correctness's sake,
-be78d4b Move the overflow check to alloc() so that the link struct overhead can
-5a621f7 Cast iscntrl()'s arg to unsigned char.
-93c188b wrap a long line
-2761d32 Implement real "flock" request and add it to userland programs that
-57f9637 Add allocarray(), an overflow-safe allocation function.
-c058a0f Remove three distracting aliases for NULL.
-b4e83a0 Remove an unused included header (sys/stat.h).
-48b95be Introduce an unsigned char variable for the ctype function calls.
-5044fa4 indent the builtin text a little, for naddy;
-3ae05cb Add a define for the invalid state, from mksh via Michael McConville.
-7d7a0f6 normalize a few more tame request orderings, to help review
-b6d4fcc Replace calls to x_emacs_putbuf() with x_do_ins() since all
-0284f80 Unused macros; from Michael McConville.
-a1121da Move more declarations out of proto.h into better headers, from Michael
-ebd2da1 ksh can run with pledge "stdio rpath wpath cpath getpw fattr proc exec tty"
-09088e5 Lexer states are not needed outside of lex.c.
-9174e63 remove null check before afree. from Michael McConville
-60e0203 pare down the readme so as to not imply we are tracking upstream.
-1253379 stop trying to gift history files to the original owner. instead, don't
-e8794ff little cleanup from Michael McConville, mostly related to stale comments.
-ba9a741 Remove an old and broken test snippet, from Michael McConville. ok millert
-1d9e264 Drop the silly and distracting ACCEPT and REJECT macros, from Michael
-5c6f2e1 Move tree.c protos into tree.h, from Michael McConville, ok millert
-3675068 Remove EXTERN from lex.h and put the definitions in lex.c, from Michael
-59343ec Remove EXTERN from table.h and put the definitions in table.c, from
-f37b725 fix error message for csh-history. the lexer needs to back up more.
-8bbcc0d lint is dead: delete the trivial uses of /* VARARGS[0-9]+ */
-efa92b5 Remove EXTERN from edit.[ch], from Michael McConville.
-9aac0f4 Remove EXTERN from tty.[ch], from Michael McConville. No binary change.
-35b75b4 Make errorf() and bi_errorf() handle a NULL argument.
-da2c894 Last of the (thing *)0 -> NULL, from Michael McConville. No binary
-1f472e7 More (foo *)0 -> NULL, from Michael McConville. No binary change.
-1f7e361 Remove unnecessary casts, from Michael McConville. No binary change.
-02d2dc5 Expand the one use of POP_INT() macro into if()s and fix some errors
-d8480ea correct spelling of NULL from (char *)0. from Michael McConville.
-cdd5d73 stop abusing null (the variable) for an empty string in output formats.
-b9f65b9 Avoid .Ns right after .Pf, it's pointless.
-6b7c86e SIZEOF_INT is no longer needed.
-f22f1b9 Replace Tflag typedef with just int; ok tedu
-2291658 these files are a combination of old, lies, and old lies. zap.
-a757d43 Apply the ancient art of tedu to ksh_limval.h. ok guenther
-4803ef8 directions for using autoconf cannot be relevant.
-ec31662 move tty_close up a bit so we can use it.
-076c6c6 zap unused FP support. from Michael McConville. ok nicm
-5d5fb0a Remove redundant assignment
-204d1fe Replace newline and space defines by "\n" and " " directly, from Michael
-36253bc Remove INT32 define and just use int, from Martijn van Duren and Michael
-b063a0c Kill another superfluous variable initialization; from Michael McConville.
-0577b24 Remove superfluous variable initialization; from Michael McConville.
-045ad3e path.c: sync w/ r1.13
-a341c29 main.c: sync w/ r1.56
-9646925 "remove casts and null checks before free."
-dd599b0 var.c: sync w/ r1.42
-764b7e5 ksh.1: sync w/ 1.160
-4c65d07 lex.c: sync w/ r1.50
-6fc3ef9 c_sh.c: sync w/ r1.46
-95835bf sh.1: sync w/ r1.127:1.128
-96039b3 sync: exec.c r1.51, jobs.c r1.41
-a22509c var.c sync r1.41
-a75d8e8 sh.1: sync w/ r1.122:1.126
-372e468 sh.1: sync w/ r1.119:1.121
-c4c7297 Update Changelog.ksh-openbsd
-fefea11 sync emacs.c r1.50 and ksh.1 r1.159
-bb86c73 Update Changelog.ksh-openbsd
-74f3b55 Install sh.1, and udpate man pages to use pd{sh,ksh} names.
-e8b8449 sh.1: sync w/ r1.118
-a87a051 ksh.1: sync w/ r1.158
-6a45bbe misc.c: sync w/ r1.40
-054e1dc edit.c: sync w/ r1.40
-edd8d26 emacs.c: sync r1.49
-b4ce3a1 main.c: sync r1.55
-b0e4705 sync with upstream: sh.1 to r1.100 and ksh.1 to r1.156
-6ce8160 misc.c: sync with upstream r1.39
-e35133a Update Changelog.
-cc2e525 Sync. r1.98 + r1.99 sh1, r1.154 + r1.155 ksh.1
-6c05aba Sync. r1.40 var.c
-a73a1b3 Sync. history.c r1.40
-dc95fa6 Sync. expr.c r1.24
-cb6f332 c_sh.c: sync with upstream r1.45
-2702943 Update Changelog.
-579dfa3 Consolidate the Change[lL]og files and trim other docs.
-fb19ebc sync w/ upstream ksh.1 r1.152 and sh.1 r1.97
-05d9aff io.c: sync with upstream r1.25
-4c89c75 tty.c: sync from upstream r1.10
-db7e0aa io.c: sync from upstream r1.24
-bc5c77f Allow specifying $TMP for the tests.
-543dd96 Some man page semantics from upstream.
-a6c5b83 Sync with upstream (ksh.1, sh.1)
-08b999b Sync with upstream. Man page fixes.
-afc286f Plug a file desc. leak in history_open(). This is ...
-22a88a6 Sync with upstream (var.c, 1.38):
-35ccfeb Fix a misplaced cast in the recent ctype changes in vi.c
-8b70806 Remove limit on the max array index. From upstream.
-c1ac370 Add tags to .gitignore
-8541c88 _PW_NAME_LEN should be 32, not 31. The closing NUL is accounted for in username[].
-1dad541 Further reduce the diff against upstream, import the whitespace changes by sobrado@.
-1b03548 Don't include a copy of strl{cat,cpy}, but use the one in libbsd (we're already depending on it anyway).
-0f76f2f Remove trailing '+' from the tag at the top of the file. (copy-pasto...)
-c46299a Sync with latest OpenBSD sources:
-0ae8bcf Use parenthesis instead of curly brackets in Makefile.
-3223171 Tidy up Makefile.
-2c2b622 Don't commit to gcc in the Makefile, use the CC env. var.
-e1124ed Add the ksh binary.
-02a6036 Remove the last flaky heredoc.t test 'heredoc-tmpfile-8'.
-540babc Make `make check` work.
-b1aa6d6 Fix sigtraps[] population with signals.
-b228736 Dangling whitespace.
-d74f95b The Linux specific stuff.
-f5891f6 Add nobeep sh opt.
-b610de7 New ksh history implementation.
-4d4a6f7 Remove $ from the list of characters blocking * addition.
-79e234f ksh/vi: compensate for cursor move on command mode
-f1a39c2 ksh: print expansions like a "menu" (with numbers) in vi mode
-e654ca2 ksh/vi: make Ctrl-f in command mode behave the same as in insert.
-52a3706 ksh/vi: Ctrl-l in insert mode to clear the screen.
-cc67a91 Remove disabled FP support.
-f2b126b ksh/vi mode: complete as command on Ctrl-f.
-08b5c99 Add .gitignore
-bebc5b3 Import OpenBSD ksh from -current, as of 2013.11.27.
+2015-11-02 11:06:27 +0100 53f0eae Import a simple changelog generator.
+2015-11-02 10:57:05 +0100 79d2e6e Update Changelog.ksh-openbsd
+2015-11-02 10:24:28 +0100 7db2671 aresize() -> areallocarray()
+2015-11-02 10:24:19 +0100 2a1329e Remove two casts of void* return types.
+2015-11-02 10:23:47 +0100 ef1b5cb Drop a needless cast of a void *.
+2015-11-02 10:23:29 +0100 7e1b938 Add uses of areallocarray(). mksh and Bitrig ksh already have similar
+2015-10-31 08:29:14 +0100 b93e85e zap trailing whitespace;
+2015-10-31 08:29:00 +0100 c61e681 Try to clarify the fc section a tad; fc apprently stands for "fix command".
+2015-10-30 12:48:26 +0100 c63c504 'fc -e -' is deprecated in favor of 'fc -s', so update the built-in alias
+2015-10-24 17:36:44 +0200 b7ebaa9 Remove three strange and unused preproc defines. Submitted by Ilya
+2015-10-23 09:00:40 +0200 9ee6425 Sometimes there's no ^Index: line to designate the diff's start.
+2015-10-23 09:00:18 +0200 effbf86 Remove two comments listing functionless files. Trivial, no functional
+2015-10-23 08:55:53 +0200 af51b37 proto.h contains many function prototypes. It's apparently separate from
+2015-10-23 08:55:12 +0200 5cab7ff Final removal of EXTERN.
+2015-10-22 16:06:37 +0200 3f8336c Enable large file support during compile
+2015-10-22 13:09:52 +0200 e05bf85 Remove a couple of unhelpful defines.
+2015-10-22 13:09:42 +0200 20762d3 Don't bother casting NULL.
+2015-10-22 13:09:33 +0200 814ac65 Assign pointer to NULL rather than 0.
+2015-10-22 13:08:55 +0200 5ad4b99 Penultimate commit to remove EXTERN.
+2015-10-20 00:26:39 +0200 778a768 Add some helper scripts for my sake.
+2015-10-20 00:22:17 +0200 2e695d6 Remove the define NOT, replace it with '!'. No binary change.
+2015-10-20 00:22:13 +0200 26e2592 A little style(9) for sh.h includes
+2015-10-20 00:21:39 +0200 e34e82b Move stddef.h include from sh.h to the file that uses it.
+2015-10-20 00:21:13 +0200 4e20099 Move string.h include from sh.h to the files that use it.
+2015-10-20 00:18:55 +0200 da007db Move limits.h include from sh.h to the files that actually need it. No
+2015-10-20 00:18:12 +0200 029758b More removal of EXTERN.
+2015-10-20 00:17:02 +0200 76aa6b6 Apply style(9) to header includes.
+2015-10-20 00:02:16 +0200 8725b91 Move more EXTERN-defined globals from sh.h.
+2015-10-20 00:02:08 +0200 2898331 add missing underscore; from theo buehler
+2015-10-20 00:01:17 +0200 5e2cca7 Drop two useless defines.
+2015-10-20 00:01:13 +0200 d948132 Move a system header include from the global header (sh.h) into the
+2015-10-20 00:01:04 +0200 6a668c9 Change allocarray() to areallocarray(), a full reallocarray clone. All
+2015-10-20 00:00:55 +0200 c090cc6 Copy alloc()'s overflow check to aresize().
+2015-10-20 00:00:31 +0200 c753821 Change x_do_ins()'s arg type from int to size_t for correctness's sake,
+2015-10-20 00:00:17 +0200 be78d4b Move the overflow check to alloc() so that the link struct overhead can
+2015-10-19 23:59:28 +0200 5a621f7 Cast iscntrl()'s arg to unsigned char.
+2015-10-19 23:59:25 +0200 93c188b wrap a long line
+2015-10-19 23:59:21 +0200 2761d32 Implement real "flock" request and add it to userland programs that
+2015-10-19 23:59:15 +0200 57f9637 Add allocarray(), an overflow-safe allocation function.
+2015-10-19 23:59:11 +0200 c058a0f Remove three distracting aliases for NULL.
+2015-10-19 23:59:02 +0200 b4e83a0 Remove an unused included header (sys/stat.h).
+2015-10-19 23:58:49 +0200 48b95be Introduce an unsigned char variable for the ctype function calls.
+2015-10-19 23:58:27 +0200 5044fa4 indent the builtin text a little, for naddy;
+2015-10-19 23:58:20 +0200 3ae05cb Add a define for the invalid state, from mksh via Michael McConville.
+2015-10-19 23:58:12 +0200 7d7a0f6 normalize a few more tame request orderings, to help review
+2015-10-19 23:58:07 +0200 b6d4fcc Replace calls to x_emacs_putbuf() with x_do_ins() since all
+2015-10-19 23:57:45 +0200 0284f80 Unused macros; from Michael McConville.
+2015-10-19 23:57:39 +0200 a1121da Move more declarations out of proto.h into better headers, from Michael
+2015-10-19 23:57:00 +0200 ebd2da1 ksh can run with pledge "stdio rpath wpath cpath getpw fattr proc exec tty"
+2015-10-19 23:54:27 +0200 09088e5 Lexer states are not needed outside of lex.c.
+2015-10-19 23:54:19 +0200 9174e63 remove null check before afree. from Michael McConville
+2015-10-19 23:53:18 +0200 60e0203 pare down the readme so as to not imply we are tracking upstream.
+2015-10-19 23:53:07 +0200 1253379 stop trying to gift history files to the original owner. instead, don't
+2015-10-19 23:51:13 +0200 e8794ff little cleanup from Michael McConville, mostly related to stale comments.
+2015-10-19 23:50:18 +0200 ba9a741 Remove an old and broken test snippet, from Michael McConville. ok millert
+2015-10-19 23:50:09 +0200 1d9e264 Drop the silly and distracting ACCEPT and REJECT macros, from Michael
+2015-10-19 23:50:01 +0200 5c6f2e1 Move tree.c protos into tree.h, from Michael McConville, ok millert
+2015-10-19 23:49:58 +0200 3675068 Remove EXTERN from lex.h and put the definitions in lex.c, from Michael
+2015-10-19 23:49:50 +0200 59343ec Remove EXTERN from table.h and put the definitions in table.c, from
+2015-10-19 23:49:28 +0200 f37b725 fix error message for csh-history. the lexer needs to back up more.
+2015-10-19 23:49:06 +0200 8bbcc0d lint is dead: delete the trivial uses of /* VARARGS[0-9]+ */
+2015-10-19 23:49:00 +0200 efa92b5 Remove EXTERN from edit.[ch], from Michael McConville.
+2015-10-19 23:48:57 +0200 9aac0f4 Remove EXTERN from tty.[ch], from Michael McConville. No binary change.
+2015-10-19 23:48:52 +0200 35b75b4 Make errorf() and bi_errorf() handle a NULL argument.
+2015-10-19 23:48:44 +0200 da2c894 Last of the (thing *)0 -> NULL, from Michael McConville. No binary
+2015-10-19 23:48:17 +0200 1f472e7 More (foo *)0 -> NULL, from Michael McConville. No binary change.
+2015-10-19 23:48:08 +0200 1f7e361 Remove unnecessary casts, from Michael McConville. No binary change.
+2015-10-19 23:47:52 +0200 02d2dc5 Expand the one use of POP_INT() macro into if()s and fix some errors
+2015-10-19 23:47:27 +0200 d8480ea correct spelling of NULL from (char *)0. from Michael McConville.
+2015-10-19 23:46:53 +0200 cdd5d73 stop abusing null (the variable) for an empty string in output formats.
+2015-10-19 23:46:38 +0200 b9f65b9 Avoid .Ns right after .Pf, it's pointless.
+2015-10-19 23:45:30 +0200 6b7c86e SIZEOF_INT is no longer needed.
+2015-10-19 23:45:11 +0200 f22f1b9 Replace Tflag typedef with just int; ok tedu
+2015-10-19 23:40:16 +0200 2291658 these files are a combination of old, lies, and old lies. zap.
+2015-10-19 23:38:14 +0200 a757d43 Apply the ancient art of tedu to ksh_limval.h. ok guenther
+2015-10-19 23:36:57 +0200 4803ef8 directions for using autoconf cannot be relevant.
+2015-10-19 23:36:02 +0200 ec31662 move tty_close up a bit so we can use it.
+2015-10-19 23:34:53 +0200 076c6c6 zap unused FP support. from Michael McConville. ok nicm
+2015-10-19 23:33:44 +0200 5d5fb0a Remove redundant assignment
+2015-10-19 23:33:04 +0200 204d1fe Replace newline and space defines by "\n" and " " directly, from Michael
+2015-10-19 23:32:23 +0200 36253bc Remove INT32 define and just use int, from Martijn van Duren and Michael
+2015-10-19 23:32:17 +0200 b063a0c Kill another superfluous variable initialization; from Michael McConville.
+2015-10-19 23:32:07 +0200 0577b24 Remove superfluous variable initialization; from Michael McConville.
+2015-09-07 10:22:28 +0200 045ad3e path.c: sync w/ r1.13
+2015-09-02 22:33:09 +0200 a341c29 main.c: sync w/ r1.56
+2015-09-01 16:33:21 +0200 9646925 "remove casts and null checks before free."
+2015-09-01 10:14:24 +0200 dd599b0 var.c: sync w/ r1.42
+2015-08-11 08:53:57 +0200 764b7e5 ksh.1: sync w/ 1.160
+2015-08-11 08:51:52 +0200 4c65d07 lex.c: sync w/ r1.50
+2015-08-11 08:50:16 +0200 6fc3ef9 c_sh.c: sync w/ r1.46
+2015-05-25 17:51:37 +0200 95835bf sh.1: sync w/ r1.127:1.128
+2015-04-19 09:42:53 +0200 96039b3 sync: exec.c r1.51, jobs.c r1.41
+2015-04-18 15:16:53 +0200 a22509c var.c sync r1.41
+2015-04-04 14:23:37 +0200 a75d8e8 sh.1: sync w/ r1.122:1.126
+2015-03-26 14:10:38 +0100 372e468 sh.1: sync w/ r1.119:1.121
+2015-03-26 11:06:20 +0100 c4c7297 Update Changelog.ksh-openbsd
+2015-03-26 10:54:32 +0100 fefea11 sync emacs.c r1.50 and ksh.1 r1.159
+2015-03-26 10:42:47 +0100 bb86c73 Update Changelog.ksh-openbsd
+2015-03-26 10:41:22 +0100 74f3b55 Install sh.1, and udpate man pages to use pd{sh,ksh} names.
+2015-03-21 14:54:09 +0100 e8b8449 sh.1: sync w/ r1.118
+2015-03-21 14:52:45 +0100 a87a051 ksh.1: sync w/ r1.158
+2015-03-21 14:51:47 +0100 6a45bbe misc.c: sync w/ r1.40
+2015-03-21 14:50:47 +0100 054e1dc edit.c: sync w/ r1.40
+2015-03-10 10:31:57 +0100 edd8d26 emacs.c: sync r1.49
+2015-02-09 13:14:29 +0100 b4ce3a1 main.c: sync r1.55
+2015-01-18 10:32:11 +0100 b0e4705 sync with upstream: sh.1 to r1.100 and ksh.1 to r1.156
+2015-01-18 10:27:51 +0100 6ce8160 misc.c: sync with upstream r1.39
+2014-12-20 12:06:00 +0100 e35133a Update Changelog.
+2014-12-20 12:00:10 +0100 cc2e525 Sync. r1.98 + r1.99 sh1, r1.154 + r1.155 ksh.1
+2014-12-20 11:55:12 +0100 6c05aba Sync. r1.40 var.c
+2014-12-20 11:48:19 +0100 a73a1b3 Sync. history.c r1.40
+2014-12-20 11:47:37 +0100 dc95fa6 Sync. expr.c r1.24
+2014-08-27 19:52:06 +0200 cb6f332 c_sh.c: sync with upstream r1.45
+2014-08-27 11:17:51 +0200 2702943 Update Changelog.
+2014-08-27 11:15:55 +0200 579dfa3 Consolidate the Change[lL]og files and trim other docs.
+2014-08-18 13:52:58 +0200 fb19ebc sync w/ upstream ksh.1 r1.152 and sh.1 r1.97
+2014-08-13 17:03:24 +0200 05d9aff io.c: sync with upstream r1.25
+2014-08-10 11:39:01 +0200 4c89c75 tty.c: sync from upstream r1.10
+2014-08-10 11:36:27 +0200 db7e0aa io.c: sync from upstream r1.24
+2014-07-29 15:51:58 +0200 bc5c77f Allow specifying $TMP for the tests.
+2014-03-16 11:11:04 +0100 543dd96 Some man page semantics from upstream.
+2014-01-28 21:59:29 +0100 a6c5b83 Sync with upstream (ksh.1, sh.1)
+2014-01-25 09:23:19 +0100 08b999b Sync with upstream. Man page fixes.
+2014-01-01 16:31:09 +0100 afc286f Plug a file desc. leak in history_open(). This is ...
+2013-12-21 00:14:58 +0100 22a88a6 Sync with upstream (var.c, 1.38):
+2013-12-18 17:58:42 +0100 35ccfeb Fix a misplaced cast in the recent ctype changes in vi.c
+2013-12-18 17:53:04 +0100 8b70806 Remove limit on the max array index. From upstream.
+2013-12-17 20:11:14 +0100 c1ac370 Add tags to .gitignore
+2013-12-17 19:49:44 +0100 8541c88 _PW_NAME_LEN should be 32, not 31. The closing NUL is accounted for in username[].
+2013-12-17 19:46:47 +0100 1dad541 Further reduce the diff against upstream, import the whitespace changes by sobrado@.
+2013-12-17 19:30:59 +0100 1b03548 Don't include a copy of strl{cat,cpy}, but use the one in libbsd (we're already depending on it anyway).
+2013-12-17 19:27:49 +0100 0f76f2f Remove trailing '+' from the tag at the top of the file. (copy-pasto...)
+2013-12-17 19:22:05 +0100 c46299a Sync with latest OpenBSD sources:
+2013-11-29 16:05:28 +0100 0ae8bcf Use parenthesis instead of curly brackets in Makefile.
+2013-11-29 16:02:37 +0100 3223171 Tidy up Makefile.
+2013-11-29 15:56:19 +0100 2c2b622 Don't commit to gcc in the Makefile, use the CC env. var.
+2013-11-29 15:21:32 +0100 e1124ed Add the ksh binary.
+2013-11-29 15:12:29 +0100 02a6036 Remove the last flaky heredoc.t test 'heredoc-tmpfile-8'.
+2013-11-27 22:16:41 +0100 540babc Make `make check` work.
+2013-11-27 22:13:25 +0100 b1aa6d6 Fix sigtraps[] population with signals.
+2013-11-27 22:10:45 +0100 b228736 Dangling whitespace.
+2013-11-27 21:44:03 +0100 d74f95b The Linux specific stuff.
+2013-11-27 21:42:18 +0100 f5891f6 Add nobeep sh opt.
+2013-11-27 21:41:03 +0100 b610de7 New ksh history implementation.
+2013-11-27 21:40:31 +0100 4d4a6f7 Remove $ from the list of characters blocking * addition.
+2013-11-27 21:40:14 +0100 79e234f ksh/vi: compensate for cursor move on command mode
+2013-11-27 21:39:17 +0100 f1a39c2 ksh: print expansions like a "menu" (with numbers) in vi mode
+2013-11-27 21:38:51 +0100 e654ca2 ksh/vi: make Ctrl-f in command mode behave the same as in insert.
+2013-11-27 21:38:30 +0100 52a3706 ksh/vi: Ctrl-l in insert mode to clear the screen.
+2013-11-27 21:38:04 +0100 cc67a91 Remove disabled FP support.
+2013-11-27 21:37:19 +0100 f2b126b ksh/vi mode: complete as command on Ctrl-f.
+2013-11-27 21:33:23 +0100 08b5c99 Add .gitignore
+2013-11-27 21:30:31 +0100 bebc5b3 Import OpenBSD ksh from -current, as of 2013.11.27.
