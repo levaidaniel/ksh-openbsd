@@ -1,4 +1,4 @@
-/*	$OpenBSD: sh.h,v 1.50 2015/10/23 01:33:36 mmcc Exp $	*/
+/*	$OpenBSD: sh.h,v 1.51 2015/11/01 15:38:53 mmcc Exp $	*/
 
 /*
  * Public Domain Bourne/Korn shell
@@ -28,7 +28,6 @@
 /* end of common headers */
 
 #define	NELEM(a) (sizeof(a) / sizeof((a)[0]))
-#define	sizeofN(type, n) (sizeof(type) * (n))
 #define	BIT(i)	(1<<(i))	/* define bit in flag */
 
 #define	NUFILE	32		/* Number of user-accessible files */
@@ -392,6 +391,7 @@ extern	int	x_cols;	/* tty columns */
 Area *	ainit(Area *);
 void	afreeall(Area *);
 void *	alloc(size_t, Area *);
+void *	areallocarray(void *, size_t, size_t, Area *);
 void *	aresize(void *, size_t, Area *);
 void	afree(void *, Area *);
 /* c_ksh.c */
