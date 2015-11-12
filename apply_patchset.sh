@@ -74,6 +74,7 @@ ${line}"
 	git commit --allow-empty-message -v -e -F commit-message .
 	rm -f commit-message
 
-	echo -n "successfully applied patchset #${PATCHSET}. press enter to continue with the next file."; read
+	echo "successfully applied patchset #${PATCHSET}."
+	echo -n "press enter to continue with the next file."; read
 	PATCHSET=$(( PATCHSET + 1 ))
 done
