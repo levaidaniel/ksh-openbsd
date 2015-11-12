@@ -4,6 +4,7 @@
  * signal handling
  */
 
+#include <ctype.h>
 #include <bsd/string.h>
 
 #include "sh.h"
