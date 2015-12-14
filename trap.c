@@ -1,11 +1,13 @@
-/*	$OpenBSD: trap.c,v 1.27 2015/10/19 14:42:16 mmcc Exp $	*/
+/*	$OpenBSD: trap.c,v 1.29 2015/12/14 13:59:42 tb Exp $	*/
 
 /*
  * signal handling
  */
 
 #include <ctype.h>
+#include <errno.h>
 #include <bsd/string.h>
+#include <unistd.h>
 
 #include "sh.h"
 #include "posix_signals.h" /* sys_signame[] */
