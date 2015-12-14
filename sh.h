@@ -10,6 +10,7 @@
 
 /* Start of common headers */
 
+#include <fcntl.h>
 #include <setjmp.h>
 #define __USE_GNU /* needed for setresuid() and setresgid() */
 #include <stdarg.h>
