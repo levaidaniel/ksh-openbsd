@@ -1,4 +1,4 @@
-/*	$OpenBSD: c_sh.c,v 1.58 2015/12/30 09:07:00 tedu Exp $	*/
+/*	$OpenBSD: c_sh.c,v 1.59 2016/03/04 15:11:06 deraadt Exp $	*/
 
 /*
  * built-in Bourne commands
@@ -826,55 +826,6 @@ c_exec(char **wp)
 	return 0;
 }
 
-#ifdef MKNOD
-static int
-c_mknod(char **wp)
-{
-	int argc, optc, ismkfifo = 0, ret;
-	char **argv;
-	mode_t mode = 0, old_umask = -1;
-
-	while ((optc = ksh_getopt(wp, &builtin_opt, "m:")) != -1) {
-		switch (optc) {
-		case 'm':
-			old_umask = umask(0);
-			mode |= strtoul(builtin_opt.optarg, NULL, 8);
-			break;
-		default:
-			goto usage;
-		}
-	}
-	argv = &wp[builtin_opt.optind];
-	if (argv[0] == NULL)
-		goto usage;
-	for (argc = 0; argv[argc]; argc++)
-		;
-	if (argc == 2 && argv[1][0] == 'p') {
-		ismkfifo = 1;
-		argc--;
-	} else if (argc != 4)
-		goto usage;
-
-	if (old_umask == -1)
-		mode |= DEFFILEMODE;
-
-	if (ismkfifo)
-		ret = domkfifo(argc, argv, mode);
-	else
-		ret = domknod(argc, argv, mode);
-
-	if (old_umask != -1)
-		umask(old_umask);
-
-	return ret;
-usage:
-	builtin_argv0 = NULL;
-	bi_errorf("usage: mknod [-m mode] name b|c major minor");
-	bi_errorf("usage: mknod [-m mode] name p");
-	return 1;
-}
-#endif /* MKNOD */
-
 static int
 c_suspend(char **wp)
 {
@@ -933,9 +884,6 @@ const struct builtin shbuiltins [] = {
 	{"ulimit", c_ulimit},
 	{"+umask", c_umask},
 	{"*=unset", c_unset},
-#ifdef MKNOD
-	{"mknod", c_mknod},
-#endif
 	{"suspend", c_suspend},
 	{NULL, NULL}
 };
