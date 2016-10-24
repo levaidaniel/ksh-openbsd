@@ -1,3 +1,80 @@
+2016-10-23 20:00:12 +0200 9351a05 simplify implementation of the '$' command, no functional change;
+2016-10-23 20:00:03 +0200 f431a93 resolve code duplication in domove() for the commands: b B w W
+2016-10-23 19:59:55 +0200 e2cccad No need to inspect LC_CTYPE:
+2016-10-23 19:59:35 +0200 ebb1236 Make sure the cursor goes to the first byte of a UTF-8 character
+2016-10-16 07:31:07 +0200 23a863a remove the "in the future" notes from the past;
+2016-10-14 20:23:55 +0200 2ccc43c Correct description of the "bind" builtin command.
+2016-10-14 07:12:49 +0200 57af673 Partial UTF-8 line editing support for ksh(1) vi input mode;
+2016-10-08 11:43:18 +0200 c0e8f5e note that ulimit -m is not enforced, spotted by jmc
+2016-10-01 10:59:48 +0200 0b87f0a remove unneccessary .Pp; from jan stary
+2016-09-29 15:03:56 +0200 a7234a1 Move bug description to the BUGS section
+2016-09-20 07:08:01 +0200 22cb102 Mark PPID read-only as per the manual.  From Anthony Coulter.
+2016-09-20 07:07:50 +0200 4d7c075 Add KSH_IGNORE_RDONLY flag and use it in var.c instead of the 0x4
+2016-09-20 07:07:43 +0200 d92ddba Allow "typeset -ir FOO" if FOO is not already marked read-only.  OK tb@
+2016-09-20 07:07:33 +0200 9f2fc91 Don't try to look up array names for complete_* that aren't
+2016-09-20 07:07:29 +0200 6ab1279 remove unused variable 'last'
+2016-09-20 07:07:03 +0200 09a7d02 Allow simple custom completions by creating an array named
+2016-09-20 07:05:38 +0200 a8696c5 XXX placeholder commit for history.c@r1.58: Use writev(2) to write history records using a single syscall.
+2016-09-20 07:03:52 +0200 b099ab6 Avoid recursively calling c_fc().  Fixes a core dump from "r r" and
+2016-09-20 06:58:19 +0200 eca2cb0 Avoid a compiler warning about use of uninitialized l.beg emitted
+2016-08-14 21:30:07 +0200 812992e rework initial text a little, to read better;
+2016-08-14 21:29:49 +0200 52512a4 In emacs incremental search mode (^R),
+2016-08-14 21:29:32 +0200 4da0231 remove note about command substitution and double quotes: it is probable
+2016-08-14 21:29:23 +0200 2c9f232 rework the first sentence of this page;
+2016-06-04 10:42:06 +0200 4337747 put this in the public domain as well. reminded by theo. we discussed
+2016-06-04 10:41:49 +0200 4cb757b Correct the description of the != operator in arithmetic expansion;
+2016-06-04 10:41:26 +0200 ae96898 line editing correction; from andras farkas
+2016-04-28 11:43:32 +0200 2b8f805 Do not handle echo "`echo \"hi\"`" in POSIX mode differently than in
+2016-03-22 15:06:02 +0100 46ddf97 More ksh POSIX compliance fixes by Martijn Dekker:
+2016-03-22 15:05:52 +0100 04d9cc4 Currently we have about a 50/50 split over fcntl(n, F_GETFL [,0])
+2016-03-18 12:23:55 +0100 5d77253 remove some ARGSUSED
+2016-03-07 13:46:59 +0100 40b0ed2 tweak previous a little;
+2016-03-07 13:46:34 +0100 1cda336 Make set +o conform with POSIX.
+2016-03-07 13:46:25 +0100 a1b9369 POSIX-compliant behavior of "set -u" regarding "$*" and "$@" specials
+2016-03-07 13:46:14 +0100 d5b8709 Fix a typo.  The command is to get the default system PATH value
+2016-03-07 13:45:48 +0100 a8b6701 remove CSRG BSD-licensed mknod builtin code which was previously used to
+2016-03-07 13:39:06 +0100 23be97b don't parse (...|...) patterns in variable substitution inside double quotes
+2016-01-30 22:44:51 +0100 ccba955 Therefor -> Therefore (where appropriate)
+2016-01-30 22:44:43 +0100 c2eaa32 remove a useless macro
+2016-01-16 10:16:45 +0100 d332194 Initialize a struct kill_info and an associated int in the declarations
+2016-01-12 19:15:27 +0100 7bc5ce4 Next step in UTF-8 support:
+2015-12-30 19:14:22 +0100 48fd75a add another combo for home/end keys that works in tmux.
+2015-12-30 19:14:10 +0100 91c5eef rename global "e" to genv to avoid accidental shadowing and aliasing.
+2015-12-30 09:40:23 +0100 f642380 Remove reference to $ERRNO, which was been unimplemented for >= 19
+2015-12-27 23:11:59 +0100 e167d9b Tweak comment: we now always make a copy of argv.
+2015-12-27 23:11:41 +0100 673b453 unconditionally duplicate the argv array on initialization, to make it
+2015-12-26 21:39:54 +0100 08abba6 remove special characters; diff from michael reed
+2015-12-26 21:39:44 +0100 313d2d0 Assign pointer variables to NULL rather than 0. No functional change.
+2015-12-21 09:09:24 +0100 c744204 Replace an ugly bit of pointer arithmetic with a conditional expression.
+2015-12-14 19:04:18 +0100 eff42fe Fix sh.h after previous large(ish) commit.
+2015-12-14 19:01:55 +0100 f985e46 Move system headers from sh.h to those files that actually need them.
+2015-12-14 13:53:53 +0100 80275f2 Remove a superfluous macro. No binary change. ok tb@
+2015-12-10 12:58:56 +0100 da46fbe In emacs command-line editing mode, make sure that moving left and
+2015-12-07 09:02:14 +0100 9710e86 Remove a 250-line catalog of AT&T ksh bugs.   ok tedu
+2015-12-07 09:02:05 +0100 8d0f3a3 Remove some more pdksh-specific stuff and references to files that no
+2015-12-05 13:19:27 +0100 50a5188 Remove descriptions of files that no longer exist.
+2015-12-05 13:19:18 +0100 a1fa636 Remove needless reference to LEGAL, which is likely outdated itself.
+2015-12-05 13:19:04 +0100 bac54ad Remove some bug report guidelines from pdksh that aren't relevant to us.
+2015-12-02 22:59:10 +0100 ab14a86 comment typo
+2015-11-28 20:30:25 +0100 26badfb Revert previous tweak, pending a more complete rewording. Discussed with
+2015-11-22 16:08:02 +0100 943ab22 This man page uses "Note that" profusely, which is generally considered
+2015-11-22 16:07:44 +0100 ff1b62d Don't use pdksh for self-reference and remove needless historical
+2015-11-22 16:07:25 +0100 fdce068 Remove commented-out BUGS section that directs reports to long-extinct
+2015-11-22 16:07:15 +0100 4fe2245 "one" -> "one or more"
+2015-11-21 09:18:49 +0100 92052b1 remove unused prototype
+2015-11-21 09:18:30 +0100 7773286 Only unget match[] if it has been used, ok sthen
+2015-11-13 07:43:24 +0100 d7c3f8d use symbolics for flags to open
+2015-11-12 13:19:13 +0100 d0d513d apply_patchset.sh: format
+2015-11-12 13:18:07 +0100 b36437f Use isdigit() instead of ksh's homebrewed alternative.
+2015-11-12 13:16:49 +0100 6d2b4d3 exit() after perror() for pledge failure.  Perhaps this got introduced
+2015-11-12 13:16:36 +0100 8c381a9 add missing NAME entries; ok schwarze
+2015-11-08 22:54:30 +0100 ef41873 Tweak a reallocarray call to be more overflow-resistant. From Theo Buehler.
+2015-11-08 22:53:50 +0100 2440d12 Make it clearer that warningf()'s first argument determines whether the
+2015-11-05 21:25:53 +0100 3411287 Capitalize entire macro name.
+2015-11-05 21:18:41 +0100 c8df2e3 Clean up an Xstring macro. Submitted by Theo Buehler.
+2015-11-05 21:18:30 +0100 5dc4f39 Remove an alias for a macro.
+2015-11-02 20:35:52 +0100 7de4e98 Another aresize() -> areallocarray().
+2015-11-02 11:06:48 +0100 1e527e5 Replace changelog with one that contains dates.
 2015-11-02 11:06:27 +0100 53f0eae Import a simple changelog generator.
 2015-11-02 10:57:05 +0100 79d2e6e Update Changelog.ksh-openbsd
 2015-11-02 10:24:28 +0100 7db2671 aresize() -> areallocarray()
