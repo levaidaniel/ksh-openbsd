@@ -1,3 +1,11 @@
+2016-12-12 12:03:20 +0100 af7767b I missed a bit of the indentation fix from Kartik Agaram.
+2016-12-12 12:01:07 +0100 f5e9969 When ERREXIT (set -e) is in effect, don't disable it after a
+2016-12-12 12:00:48 +0100 05a97c0 In execute() we assign xerrorok to a dummy value if it is NULL
+2016-12-12 12:00:23 +0100 0b7810a Fix for() loop indentation for TCASE  in execute() and add some
+2016-11-15 09:41:15 +0100 efae3e1 Remove an escaped blank space and insert an No macro to keep \&; at a
+2016-11-15 09:41:06 +0100 577851f Markup improvements:
+2016-11-15 09:40:59 +0100 a6300e9 Fix lexicographic order of shell built-ins: trap comes before true.
+2016-10-24 11:11:06 +0200 8780c80 Update Changelog
 2016-10-23 20:00:12 +0200 9351a05 simplify implementation of the '$' command, no functional change;
 2016-10-23 20:00:03 +0200 f431a93 resolve code duplication in domove() for the commands: b B w W
 2016-10-23 19:59:55 +0200 e2cccad No need to inspect LC_CTYPE:
