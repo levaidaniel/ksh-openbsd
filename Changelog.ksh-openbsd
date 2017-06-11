@@ -1,3 +1,18 @@
+2017-06-11 11:19:55 +0200 4f8b4c3 Fix fallout after merging new history implementation
+2017-06-11 10:52:03 +0200 b0f85d3 The fact is simple: Subshells have the same PPID as the current shell.
+2017-06-11 10:51:58 +0200 1207b7f Let the 's' command delete the right number of bytes when UTF-8
+2017-06-11 10:51:49 +0200 c23eaf8 Allow replacement of UTF-8 characters in vi mode.
+2017-06-11 10:51:21 +0200 60d5920 Change the mmap(2)-based binary history file with lots of magic and a
+2017-06-11 10:38:07 +0200 042d620 Fix cursor position while removing characters from the command line.
+2017-06-11 10:37:49 +0200 0a90be1 document behaviour when CDPATH unset;
+2017-06-11 10:37:31 +0200 8f1aeec Improve UTF-8 handling on lines that are wider than the terminal,
+2017-06-11 10:37:18 +0200 f4e4477 a little tidy up; from raf czlonka
+2017-06-11 10:37:07 +0200 39cf6f2 Quiet an "implicit conversion from 'int' to 'char' changes value"
+2017-06-11 10:37:04 +0200 51279a9 document the "type" built-in, marked as xsi by posix;
+2017-06-11 10:36:58 +0200 bdb9685 document the ulimit built-in, which is now marked xsi by posix;
+2017-06-11 10:36:47 +0200 99d4797 document the "hash" built-in, moved to (posix) base in issue 7;
+2017-03-05 08:48:31 +0100 5b2e9a7 Assigning to RANDOM calls srand_deterministic(3), not srand(3),
+2016-12-13 10:19:53 +0100 5d46d5d Update Changelog
 2016-12-12 12:03:20 +0100 af7767b I missed a bit of the indentation fix from Kartik Agaram.
 2016-12-12 12:01:07 +0100 f5e9969 When ERREXIT (set -e) is in effect, don't disable it after a
 2016-12-12 12:00:48 +0100 05a97c0 In execute() we assign xerrorok to a dummy value if it is NULL
