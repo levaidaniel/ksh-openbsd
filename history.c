@@ -14,18 +14,25 @@
 
 #include <sys/stat.h>
 #include <sys/uio.h>
+#include <sys/file.h>
 
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <bsd/string.h>
 #include <unistd.h>
-#include <vis.h>
+#include <stdint.h>
 
+#include "vis.h"
 #include "sh.h"
 
 #ifdef HISTORY
+#define timespeccmp(tsp, usp, cmp)		\
+	(((tsp)->tv_sec == (usp)->tv_sec) ?	\
+		((tsp)->tv_nsec cmp (usp)->tv_nsec) :	\
+		((tsp)->tv_sec cmp (usp)->tv_sec))
 
 static void	history_write(void);
 static FILE	*history_open(void);
@@ -645,7 +652,7 @@ history_open(void)
 	FILE		*f;
 	int		fd, fddup;
 
-	if ((fd = open(hname, O_RDWR | O_CREAT | O_EXLOCK, 0600)) == -1)
+	if ((fd = open(hname, O_RDWR | O_CREAT | F_EXLCK, 0600)) == -1)
 		return NULL;
 	if (fstat(fd, &sb) == -1 || sb.st_uid != getuid()) {
 		close(fd);

@@ -9,10 +9,12 @@
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <paths.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <bsd/string.h>
+#include <bsd/stdlib.h>
 #include <unistd.h>
 
 #include "sh.h"

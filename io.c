@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <bsd/string.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "sh.h"
 
