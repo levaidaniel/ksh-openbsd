@@ -1,4 +1,4 @@
-/*	$OpenBSD: alloc.c,v 1.15 2016/06/01 10:29:20 espie Exp $	*/
+/*	$OpenBSD: alloc.c,v 1.16 2017/05/29 13:09:17 tb Exp $	*/
 
 /* Public domain, like most of the rest of ksh */
 

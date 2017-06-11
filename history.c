@@ -1,4 +1,4 @@
-/*	$OpenBSD: history.c,v 1.58 2016/08/24 16:09:40 millert Exp $	*/
+/*	$OpenBSD: history.c,v 1.59 2017/05/29 13:09:17 tb Exp $	*/
 
 /*
  * command history
@@ -13,28 +13,24 @@
  */
 
 #include <sys/stat.h>
-#include <stdint.h>
+#include <sys/uio.h>
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <bsd/string.h>
+#include <string.h>
 #include <unistd.h>
+#include <vis.h>
 
 #include "sh.h"
 
 #ifdef HISTORY
-# include <sys/mman.h>
 
-#define timespeccmp(tsp, usp, cmp)			\
-	(((tsp)->tv_sec == (usp)->tv_sec) ?		\
-	    ((tsp)->tv_nsec cmp (usp)->tv_nsec) :	\
-	    ((tsp)->tv_sec cmp (usp)->tv_sec))
-
-static void	writehistfile(FILE *);
-static FILE    *history_open(int *);
-static int	history_load(FILE *, Source *);
-static void	history_close(FILE *);
+static void	history_write(void);
+static FILE	*history_open(void);
+static int	history_load(Source *);
+static void	history_close(void);
 
 static int	hist_execute(char *);
 static int	hist_replace(char **, const char *, const char *, int);
@@ -42,10 +38,13 @@ static char   **hist_get(const char *, int, int);
 static char   **hist_get_oldest(void);
 static void	histbackup(void);
 
+static FILE	*histfh;
 static char   **current;	/* current position in history[] */
 static char    *hname;		/* current name of history file */
 static int	hstarted;	/* set after hist_init() called */
-static Source  *hist_source;
+static Source	*hist_source;
+static uint32_t	line_co;
+
 static struct stat last_sb;
 
 int
@@ -551,6 +550,7 @@ sethistfile(const char *name)
 		hist_source->line = 0;
 	}
 
+	history_close();
 	hist_init(hist_source);
 }
 
@@ -567,6 +567,16 @@ init_histvec(void)
 	}
 }
 
+static void
+history_lock(int operation)
+{
+	while (flock(fileno(histfh), operation) != 0) {
+		if (errno == EINTR || errno == EAGAIN)
+			continue;
+		else
+			break;
+	}
+}
 
 /*
  *	Routines added by Peter Collinson BSDI(Europe)/Hillside Systems to
@@ -583,23 +593,25 @@ init_histvec(void)
 void
 histsave(int lno, const char *cmd, int dowrite)
 {
-	char		**hp;
-	char		*c, *cp;
-	int		changed;
-	FILE		*f = NULL;
+	struct stat	sb;
+	char		**hp, *c, *cp, *encoded;
 
-	if (dowrite) {
-		f = history_open(&changed);
-		if (f && changed) {
-			/* reset history */
-			histptr = history - 1;
-			hist_source->line = 0;
-			history_load(f, hist_source);
+	if (dowrite && histfh) {
+		history_lock(LOCK_EX);
+		if (fstat(fileno(histfh), &sb) != -1) {
+			if (timespeccmp(&sb.st_mtim, &last_sb.st_mtim, ==))
+				; /* file is unchanged */
+			else {
+				/* reset history */
+				histptr = history - 1;
+				hist_source->line = 0;
+				history_load(hist_source);
+			}
 		}
 	}
 
 	c = str_save(cmd, APERM);
-	if ((cp = strchr(c, '\n')) != NULL)
+	if ((cp = strrchr(c, '\n')) != NULL)
 		*cp = '\0';
 
 	hp = histptr;
@@ -611,85 +623,87 @@ histsave(int lno, const char *cmd, int dowrite)
 	*hp = c;
 	histptr = hp;
 
-	if (dowrite && f) {
-		writehistfile(f);
-		history_close(f);
+	if (dowrite && histfh) {
+		/* append to file */
+		if (fseeko(histfh, 0, SEEK_END) == 0 &&
+		    stravis(&encoded, c, VIS_SAFE | VIS_NL) != -1) {
+			fprintf(histfh, "%s\n", encoded);
+			fflush(histfh);
+			fstat(fileno(histfh), &last_sb);
+			line_co++;
+			history_write();
+			free(encoded);
+		}
+		history_lock(LOCK_UN);
 	}
 }
 
 static FILE *
-history_open(int *changed)
+history_open(void)
 {
-	int		fd;
-	FILE		*f = NULL;
 	struct stat	sb;
+	FILE		*f;
+	int		fd, fddup;
 
-	if ((fd = open(hname, O_RDWR | O_CREAT, 0600)) == -1)
-		return (NULL);
-	if (flock(fd, LOCK_EX) == -1) {
+	if ((fd = open(hname, O_RDWR | O_CREAT | O_EXLOCK, 0600)) == -1)
+		return NULL;
+	if (fstat(fd, &sb) == -1 || sb.st_uid != getuid()) {
 		close(fd);
-		return (NULL);
+		return NULL;
 	}
-	f = fdopen(fd, "r+");
-	if (f == NULL) {
+	fddup = savefd(fd);
+	if (fddup != fd)
 		close(fd);
-		goto bad;
-	}
 
-	if (fstat(fileno(f), &sb) == -1)
-		goto bad;
-	if (timespeccmp(&sb.st_mtim, &last_sb.st_mtim, ==))
-		*changed = 0;
+	if ((f = fdopen(fddup, "r+")) == NULL)
+		close(fddup);
 	else
-		*changed = 1;
+		last_sb = sb;
 
-	return (f);
-bad:
-	if (f)
-		fclose(f);
-
-	return (NULL);
+	return f;
 }
 
 static void
-history_close(FILE *f)
+history_close(void)
 {
-	fflush(f);
-	fstat(fileno(f), &last_sb);
-	fclose(f);
+	if (histfh) {
+		fflush(histfh);
+		fclose(histfh);
+		histfh = NULL;
+	}
 }
 
 static int
-history_load(FILE *f, Source *s)
+history_load(Source *s)
 {
-	char		*p, line[LINE + 1];
-	uint32_t	i;
+	char		*p, encoded[LINE + 1], line[LINE + 1];
+
+	rewind(histfh);
 
 	/* just read it all; will auto resize history upon next command */
-	for (i = 1; ; i++) {
-		p = fgets(line, sizeof line, f);
-		if (p == NULL || feof(f) || ferror(f))
+	for (line_co = 1; ; line_co++) {
+		p = fgets(encoded, sizeof(encoded), histfh);
+		if (p == NULL || feof(histfh) || ferror(histfh))
 			break;
-		if ((p = strchr(line, '\n')) == NULL) {
+		if ((p = strchr(encoded, '\n')) == NULL) {
 			bi_errorf("history file is corrupt");
-			return (1);
+			return 1;
 		}
 		*p = '\0';
-
-		s->line = i;
-		s->cmd_offset = i;
-		histsave(i, (char *)line, 0);
+		s->line = line_co;
+		s->cmd_offset = line_co;
+		strunvis(line, encoded);
+		histsave(line_co, line, 0);
 	}
 
-	return (0);
+	history_write();
+
+	return 0;
 }
 
 void
 hist_init(Source *s)
 {
-	FILE		*f = NULL;
-	int		changed;
-
 	if (Flag(FTALKING) == 0)
 		return;
 
@@ -701,38 +715,57 @@ hist_init(Source *s)
 	if (hname == NULL)
 		return;
 	hname = str_save(hname, APERM);
-
-	f = history_open(&changed);
-	if (f == NULL)
+	histfh = history_open();
+	if (histfh == NULL)
 		return;
 
-	history_load(f, s);
-	history_close(f);
+	history_load(s);
+
+	history_lock(LOCK_UN);
 }
 
 static void
-writehistfile(FILE *f)
+history_write(void)
 {
+	char		*cmd, *encoded;
 	int		i;
-	char		*cmd;
 
-	if (ftruncate(fileno(f), 0) == -1)
+	/* see if file has grown over 25% */
+	if (line_co < histsize + (histsize / 4))
 		return;
-	rewind(f);
 
+	/* rewrite the whole caboodle */
+	rewind(histfh);
+	if (ftruncate(fileno(histfh), 0) == -1) {
+		bi_errorf("failed to rewrite history file - %s",
+		    strerror(errno));
+	}
 	for (i = 0; i < histsize; i++) {
 		cmd = history[i];
 		if (cmd == NULL)
 			break;
-		if (fprintf(f, "%s\n", cmd) == -1)
-			return;
+
+		if (stravis(&encoded, cmd, VIS_SAFE | VIS_NL) != -1) {
+			if (fprintf(histfh, "%s\n", encoded) == -1) {
+				free(encoded);
+				return;
+			}
+			free(encoded);
+		}
 	}
+
+	line_co = histsize;
+
+	fflush(histfh);
+	fstat(fileno(histfh), &last_sb);
 }
 
 void
 hist_finish(void)
 {
+	history_close();
 }
+
 #else /* HISTORY */
 
 /* No history to be compiled in: dummy routines to avoid lots more ifdefs */
