@@ -1,4 +1,4 @@
-/*	$OpenBSD: sh.h,v 1.63 2017/08/30 17:08:45 jca Exp $	*/
+/*	$OpenBSD: sh.h,v 1.64 2017/09/03 11:52:01 jca Exp $	*/
 
 /*
  * Public Domain Bourne/Korn shell
@@ -11,6 +11,7 @@
 /* Start of common headers */
 
 #include <fcntl.h>
+#include <limits.h>
 #include <setjmp.h>
 #define __USE_GNU /* needed for setresuid() and setresgid() */
 #include <stdarg.h>
@@ -35,7 +36,6 @@
 #define ISMAGIC(c)	((unsigned char)(c) == MAGIC)
 
 #define	LINE	4096		/* input line size */
-#define	PATH	1024		/* pathname size (todo: PATH_MAX/pathconf()) */
 
 extern	const char *kshname;	/* $0 */
 extern	pid_t	kshpid;		/* $$, shell pid */
