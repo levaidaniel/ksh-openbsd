@@ -1,3 +1,35 @@
+2017-10-16 21:06:12 +0200 acedba8 Keep histptr inside of the allocated history array
+2017-10-16 21:06:06 +0200 3e19ce5 Use PATH_MAX instead of a local define
+2017-10-16 21:04:45 +0200 457067d whitespace commit from BC
+2017-10-16 21:04:36 +0200 e8a1c25 ignoredups implementation quirk
+2017-10-16 21:04:22 +0200 63dc4c4 Guard FEMACSUSEMETA uses behind #ifdef EMACS
+2017-10-16 21:04:01 +0200 c0e1589 Implement HISTCONTROL ignoredups & ignorespace features
+2017-10-16 21:03:48 +0200 d34c10e Stop exposing the emacs-usemeta option, and warn when trying to set it.
+2017-10-16 21:03:38 +0200 cc5c01e Drop needless comment
+2017-10-16 21:03:29 +0200 65301dc No need for NULL checks before afree()
+2017-10-16 21:03:02 +0200 2a6c8f9 Kill a useless setlocale() query
+2017-10-16 21:02:39 +0200 e5555ae Don't bother setting freed history lines to NULL.
+2017-10-16 21:02:16 +0200 734488c Put history_write() in line with other functions that walk history
+2017-10-16 21:02:05 +0200 bf151fd Free history entries when resizing/reloading
+2017-10-16 21:01:50 +0200 90fad7a Remove unused copy_non_glob() in ksh.
+2017-10-16 21:01:33 +0200 2b09c10 Don't lose the latest history line & don't crash when shrinking histsize
+2017-08-25 07:42:59 +0200 28c268e \$ in PS1 gets you the default prompt character, which differs from the
+2017-08-25 07:42:49 +0200 4f386f2 Remove expensive pointer check in afree()
+2017-08-15 20:15:02 +0200 91fb2df Retire old behavior of requiring root prompt to contain # or \!
+2017-08-15 20:14:41 +0200 9f54c0c Check whether the first two characters of $HISTFILE are the magic
+2017-08-02 11:00:40 +0200 77e3562 Disable ksh VI-editing mode on the install media.  We need the space
+2017-07-25 13:24:32 +0200 bd98371 Fix off-by-one error introduced in the previous commit.
+2017-07-25 13:24:19 +0200 8933797 Prettify, simplify
+2017-07-25 13:23:45 +0200 0ec6902 Use memmove instead of a hand-rolled loop
+2017-07-23 10:39:05 +0200 9bf8b98 Use monotonic clock for the time command in csh and ksh.
+2017-07-07 09:14:47 +0200 38a2734 fix broken cross references; found with mandoc -Tlint
+2017-07-07 09:14:37 +0200 28ddcb7 Backout previous due to a bug discovered by zhuk@ that requires some tinkering
+2017-07-07 09:13:53 +0200 2d7f4d3 Add support for pattern substitution to variables in ksh using a common syntax
+2017-07-07 09:13:29 +0200 130b099 Increase the input line buffer to 4096 bytes.
+2017-06-26 09:54:17 +0200 03da70f No need to NUL-terminate the line buffer since it's handled by x_e_getu8() by
+2017-06-26 09:53:52 +0200 d78ee26 Don't output partial UTF-8 characters in ksh emacs mode. Instead, try to read a
+2017-06-26 09:53:02 +0200 ca43cf8 '^T' is documented to be bounded to transpose-chars while in emacs
+2017-06-11 11:21:18 +0200 f2e0799 Update Changelog
 2017-06-11 11:19:55 +0200 4f8b4c3 Fix fallout after merging new history implementation
 2017-06-11 10:52:03 +0200 b0f85d3 The fact is simple: Subshells have the same PPID as the current shell.
 2017-06-11 10:51:58 +0200 1207b7f Let the 's' command delete the right number of bytes when UTF-8
