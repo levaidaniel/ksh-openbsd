@@ -1,3 +1,9 @@
+2017-11-12 22:03:26 +0100 aee7f7d Switch calloc(3) back to malloc(3).  The call to calloc was introduced
+2017-11-12 22:03:15 +0100 912620f Kill needless rewind(3) call in hist_init()
+2017-11-12 22:03:00 +0100 743ae1f Skip (and warn about) overlong history lines.
+2017-11-12 22:02:53 +0100 0dcf5f7 Delete the deprecated emacs-usemeta option.
+2017-11-12 22:02:42 +0100 ff85f4d The return value of this function isn't used.
+2017-10-16 21:09:08 +0200 10644a0 Update Changelog
 2017-10-16 21:06:12 +0200 acedba8 Keep histptr inside of the allocated history array
 2017-10-16 21:06:06 +0200 3e19ce5 Use PATH_MAX instead of a local define
 2017-10-16 21:04:45 +0200 457067d whitespace commit from BC
