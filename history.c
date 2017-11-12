@@ -1,4 +1,4 @@
-/*	$OpenBSD: history.c,v 1.71 2017/09/07 19:08:32 jca Exp $	*/
+/*	$OpenBSD: history.c,v 1.72 2017/10/18 15:41:25 jca Exp $	*/
 
 /*
  * command history
@@ -36,7 +36,7 @@
 
 static void	history_write(void);
 static FILE	*history_open(void);
-static int	history_load(Source *);
+static void	history_load(Source *);
 static void	history_close(void);
 
 static int	hist_execute(char *);
@@ -743,7 +743,7 @@ history_close(void)
 	}
 }
 
-static int
+static void
 history_load(Source *s)
 {
 	char		*p, encoded[LINE + 1], line[LINE + 1];
@@ -757,7 +757,7 @@ history_load(Source *s)
 			break;
 		if ((p = strchr(encoded, '\n')) == NULL) {
 			bi_errorf("history file is corrupt");
-			return 1;
+			return;
 		}
 		*p = '\0';
 		s->line = line_co;
@@ -767,8 +767,6 @@ history_load(Source *s)
 	}
 
 	history_write();
-
-	return 0;
 }
 
 #define HMAGIC1 0xab
