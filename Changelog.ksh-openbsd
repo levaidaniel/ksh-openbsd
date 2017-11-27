@@ -1,3 +1,5 @@
+2017-11-22 07:27:57 +0100 bbbf707 Initialize *histbase to NULL to fix a bus error in emacs editing mode
+2017-11-12 22:05:29 +0100 5d43b9d Update Changelog
 2017-11-12 22:03:26 +0100 aee7f7d Switch calloc(3) back to malloc(3).  The call to calloc was introduced
 2017-11-12 22:03:15 +0100 912620f Kill needless rewind(3) call in hist_init()
 2017-11-12 22:03:00 +0100 743ae1f Skip (and warn about) overlong history lines.
