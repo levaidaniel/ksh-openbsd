@@ -1,3 +1,10 @@
+2017-12-16 00:14:47 +0100 e45f0b7 oops - previous should have been a list item;
+2017-12-16 00:14:41 +0100 d91452a Document change in the default shell prompts.
+2017-12-16 00:14:13 +0100 11cf156 Include hostname in shell prompts by default
+2017-12-16 00:13:49 +0100 251afad Drop the unused second argument from set_prompt(). It used to be used for
+2017-11-27 14:47:28 +0100 87bc93e Follow emacs mode and remove the interactive "version" function.
+2017-11-27 14:47:15 +0100 9386171 Remove the "version" interactive function in emacs mode.
+2017-11-27 14:46:58 +0100 d3364a6 Fix some incorrectness related to Emacs editing mode in ksh:
 2017-11-22 07:27:57 +0100 bbbf707 Initialize *histbase to NULL to fix a bus error in emacs editing mode
 2017-11-12 22:05:29 +0100 5d43b9d Update Changelog
 2017-11-12 22:03:26 +0100 aee7f7d Switch calloc(3) back to malloc(3).  The call to calloc was introduced
