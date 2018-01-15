@@ -139,8 +139,6 @@ const struct option sh_options[] = {
 	{ "login",	'l',	    OF_CMDLINE },
 	{ "markdirs",	'X',		OF_ANY },
 	{ "monitor",	'm',		OF_ANY },
-	{ NULL,	'm',		     0 }, /* so FMONITOR not ifdef'd */
-	{ "nobeep",	0,		OF_ANY },
 	{ "noclobber",	'C',		OF_ANY },
 	{ "noexec",	'n',		OF_ANY },
 	{ "noglob",	'f',		OF_ANY },

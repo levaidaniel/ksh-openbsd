@@ -404,8 +404,7 @@ x_insert(int c)
 	 *  Should allow tab and control chars.
 	 */
 	if (c == 0) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	str[0] = c;
@@ -425,8 +424,7 @@ static int
 x_do_ins(const char *cp, size_t len)
 {
 	if (xep+len >= xend) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return -1;
 	}
 
@@ -469,8 +467,7 @@ x_del_back(int c)
 	int col = xcp - xbuf;
 
 	if (col == 0) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	if (x_arg > col)
@@ -488,8 +485,7 @@ x_del_char(int c)
 	int nleft = xep - xcp;
 
 	if (!nleft) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	if (x_arg > nleft)
@@ -591,8 +587,7 @@ x_bword(void)
 	char	*cp = xcp;
 
 	if (cp == xbuf) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return 0;
 	}
 	while (x_arg--) {
@@ -616,8 +611,7 @@ x_fword(void)
 	char	*cp = xcp;
 
 	if (cp == xep) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return 0;
 	}
 	while (x_arg--) {
@@ -714,8 +708,7 @@ x_mv_back(int c)
 	int col = xcp - xbuf;
 
 	if (col == 0) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	if (x_arg > col)
@@ -732,8 +725,7 @@ x_mv_forw(int c)
 	int nleft = xep - xcp;
 
 	if (!nleft) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	if (x_arg > nleft)
@@ -755,8 +747,7 @@ x_search_char_forw(int c)
 		if (c < 0 ||
 		    ((cp = (cp == xep) ? NULL : strchr(cp + 1, c)) == NULL &&
 		    (cp = strchr(xbuf, c)) == NULL)) {
-			if (!Flag(FNOBEEP))
-				x_e_putc(BEL);
+			x_e_putc(BEL);
 			return KSTD;
 		}
 	}
@@ -775,8 +766,7 @@ x_search_char_back(int c)
 			if (p-- == xbuf)
 				p = xep;
 			if (c < 0 || p == cp) {
-				if (!Flag(FNOBEEP))
-					x_e_putc(BEL);
+				x_e_putc(BEL);
 				return KSTD;
 			}
 			if (*p == c)
@@ -834,8 +824,7 @@ x_load_hist(char **hp)
 	int	oldsize;
 
 	if (hp < history || hp > histptr) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return;
 	}
 	x_histp = hp;
@@ -920,8 +909,7 @@ x_search_hist(int c)
 			/* add char to pattern */
 			/* overflow check... */
 			if (p >= &pat[sizeof(pat) - 1]) {
-				if (!Flag(FNOBEEP))
-					x_e_putc(BEL);
+				x_e_putc(BEL);
 				continue;
 			}
 			*p++ = c, *p = '\0';
@@ -962,8 +950,7 @@ x_search(char *pat, int sameline, int offset)
 			return i;
 		}
 	}
-	if (!Flag(FNOBEEP))
-		x_e_putc(BEL);
+	x_e_putc(BEL);
 	x_histp = histptr;
 	return -1;
 }
@@ -1104,13 +1091,11 @@ x_transpose(int c)
 	 * to the one they want.
 	 */
 	if (xcp == xbuf) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	} else if (xcp == xep || Flag(FGMACS)) {
 		if (xcp - xbuf == 1) {
-			if (!Flag(FNOBEEP))
-				x_e_putc(BEL);
+			x_e_putc(BEL);
 			return KSTD;
 		}
 		/* Gosling/Unipress emacs style: Swap two characters before the
@@ -1232,8 +1217,7 @@ x_abort(int c)
 static int
 x_error(int c)
 {
-	if (!Flag(FNOBEEP))
-		x_e_putc(BEL);
+	x_e_putc(BEL);
 	return KSTD;
 }
 
@@ -1607,8 +1591,7 @@ x_kill_region(int c)
 	char	*xr;
 
 	if (xmp == NULL) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	if (xmp > xcp) {
@@ -1630,8 +1613,7 @@ x_xchg_point_mark(int c)
 	char	*tmp;
 
 	if (xmp == NULL) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	tmp = xmp;
@@ -1705,8 +1687,7 @@ x_expand(int c)
 	    &start, &end, &words, &is_command);
 
 	if (nwords == 0) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 
@@ -1715,8 +1696,7 @@ x_expand(int c)
 	for (i = 0; i < nwords;) {
 		if (x_escape(words[i], strlen(words[i]), x_do_ins) < 0 ||
 		    (++i < nwords && x_ins(" ") < 0)) {
-			if (!Flag(FNOBEEP))
-				x_e_putc(BEL);
+			x_e_putc(BEL);
 			return KSTD;
 		}
 	}
@@ -1740,8 +1720,7 @@ do_complete(int flags,	/* XCF_{COMMAND,FILE,COMMAND_FILE} */
 	    &start, &end, &words, &is_command);
 	/* no match */
 	if (nwords == 0) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return;
 	}
 
@@ -1944,8 +1923,7 @@ x_set_arg(int c)
 	for (; c >= 0 && isdigit(c); c = x_e_getc(), first = 0)
 		n = n * 10 + (c - '0');
 	if (c < 0 || first) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		x_arg = 1;
 		x_arg_defaulted = 1;
 	} else {
@@ -1967,8 +1945,7 @@ x_comment(int c)
 	int ret = x_do_comment(xbuf, xend - xbuf, &len);
 
 	if (ret < 0)
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 	else {
 		xep = xbuf + len;
 		*xep = '\0';
@@ -2004,8 +1981,7 @@ x_prev_histword(int c)
 
 	cp = *histptr;
 	if (!cp)
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 	else if (x_arg_defaulted) {
 		rcp = &cp[strlen(cp) - 1];
 		/*
@@ -2080,8 +2056,7 @@ x_fold_case(int c)
 	char *cp = xcp;
 
 	if (cp == xep) {
-		if (!Flag(FNOBEEP))
-			x_e_putc(BEL);
+		x_e_putc(BEL);
 		return KSTD;
 	}
 	while (x_arg--) {

@@ -2208,8 +2208,7 @@ vi_error(void)
 {
 	/* Beem out of any macros as soon as an error occurs */
 	vi_macro_reset();
-	if (!Flag(FNOBEEP))
-		x_putc(BEL);
+	x_putc(BEL);
 	x_flush();
 }
 
