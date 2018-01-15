@@ -1,4 +1,4 @@
-/*	$OpenBSD: jobs.c,v 1.57 2018/01/05 15:44:31 jca Exp $	*/
+/*	$OpenBSD: jobs.c,v 1.58 2018/01/08 22:22:28 benno Exp $	*/
 
 /*
  * Process and job control
@@ -934,7 +934,7 @@ j_async(void)
 
 /* Make j the last async process
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static void
 j_set_async(Job *j)
@@ -970,7 +970,7 @@ j_set_async(Job *j)
 
 /* Start a job: set STARTED, check for held signals and set j->last_proc
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static void
 j_startjob(Job *j)
@@ -992,7 +992,7 @@ j_startjob(Job *j)
 /*
  * wait for job to complete or change state
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static int
 j_waitj(Job *j,
@@ -1116,7 +1116,7 @@ j_waitj(Job *j,
 
 /* SIGCHLD handler to reap children and update job states
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static void
 j_sigchld(int sig)
@@ -1189,7 +1189,7 @@ finished:
  * and state are updated, asynchronous job notification is done and,
  * if unneeded, the job is removed.
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static void
 check_job(Job *j)
@@ -1291,7 +1291,7 @@ check_job(Job *j)
 /*
  * Print job status in either short, medium or long format.
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static void
 j_print(Job *j, int how, struct shf *shf)
@@ -1398,7 +1398,7 @@ j_print(Job *j, int how, struct shf *shf)
 
 /* Convert % sequence to job
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static Job *
 j_lookup(const char *cp, int *ecodep)
@@ -1499,7 +1499,7 @@ static Proc	*free_procs;
 
 /* allocate a new job and fill in the job number.
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static Job *
 new_job(void)
@@ -1527,7 +1527,7 @@ new_job(void)
 
 /* Allocate new process struct
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static Proc *
 new_proc(void)
@@ -1546,7 +1546,7 @@ new_proc(void)
 /* Take job out of job_list and put old structures into free list.
  * Keeps nzombies, last_job and async_job up to date.
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static void
 remove_job(Job *j, const char *where)
@@ -1583,10 +1583,10 @@ remove_job(Job *j, const char *where)
 		async_job = NULL;
 }
 
-/* put j in a particular location (taking it out job_list if it is there
- * already)
+/* Put j in a particular location (taking it out of job_list if it is
+ * there already)
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static void
 put_job(Job *j, int where)
@@ -1621,7 +1621,7 @@ put_job(Job *j, int where)
 
 /* nuke a job (called when unable to start full job).
  *
- * If jobs are compiled in then this routine expects sigchld to be blocked.
+ * Expects sigchld to be blocked.
  */
 static int
 kill_job(Job *j, int sig)
