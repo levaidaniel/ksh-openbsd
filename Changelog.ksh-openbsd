@@ -1,3 +1,24 @@
+2018-01-15 22:01:24 +0100 49ffcad Use libbsd includes in vis.c (imported source from OpenBSD)
+2018-01-15 21:50:34 +0100 8938233 Stop pretending we support building ksh without EDIT/HISTORY support
+2018-01-15 21:49:49 +0100 2310515 unifdef BRACE_EXPAND; ok jca@
+2018-01-15 21:49:36 +0100 91241aa remove unused parameter from the static function print_expansions();
+2018-01-15 21:38:58 +0100 6b4d97a Some more tweaks to NOTES
+2018-01-15 21:38:30 +0100 cf527db update comments that were left behind in the recent unifdef JOB commit
+2018-01-15 21:38:20 +0100 55dea3b Drop two outdated entries
+2018-01-15 21:38:14 +0100 f19b99f Remove unused "args" param from kb_add(), it is always NULL.
+2018-01-15 21:38:04 +0100 999a528 Kill entries that are obviously outdated/out of scope
+2018-01-15 21:37:51 +0100 2e0678d Add proper bounds checking to kb_add().  OK anton@
+2018-01-15 21:37:46 +0100 6dfd916 Bring back the sign compare changes, this time with a fix from otto@
+2018-01-15 21:36:19 +0100 77ae828 unifdef JOBS support
+2018-01-15 21:35:18 +0100 7f8dba8 Typos in comments: 'it' -> 'if' and 'noityf' -> 'notify'.
+2018-01-15 21:33:39 +0100 4eb5af4 Back out sign compare changes that appear to cause problems on hppa.
+2018-01-15 21:30:10 +0100 ee8928a Add WARNINGS=yes to ksh and fix the resulting sign compare warnings.
+2018-01-15 21:21:47 +0100 cc6d5c1 backslash also escapes newlines when quoted;
+2018-01-15 21:21:36 +0100 6726cc1 Add -Wshadow to Makefile and fix the resulting warnings.  Many of
+2018-01-15 21:20:24 +0100 7d07ad4 The hack for /dev/fd support on systems without it was removed a
+2018-01-15 21:20:14 +0100 f00b5ba Get rid of a todo by stop declaring variable texec as static and instead zeroing
+2018-01-15 21:20:06 +0100 4c36244 Add another pair of home/end key bindings; from Lari Rasku.
+2017-12-16 00:15:20 +0100 1612dd4 Update Changelog
 2017-12-16 00:14:47 +0100 e45f0b7 oops - previous should have been a list item;
 2017-12-16 00:14:41 +0100 d91452a Document change in the default shell prompts.
 2017-12-16 00:14:13 +0100 11cf156 Include hostname in shell prompts by default
