@@ -1,10 +1,12 @@
-/*	$OpenBSD: lex.h,v 1.19 2018/01/04 19:06:16 millert Exp $	*/
+/*	$OpenBSD: lex.h,v 1.20 2018/01/06 16:28:58 millert Exp $	*/
 
 /*
  * Source input, lexer and parser
  */
 
 /* $From: lex.h,v 1.4 1994/05/31 13:34:34 michael Exp $ */
+
+#include <stdint.h>
 
 #define	IDENT	64
 
@@ -110,7 +112,7 @@ extern char	ident[IDENT+1];
 
 extern char   **history;	/* saved commands */
 extern char   **histptr;	/* last history item */
-extern int	histsize;	/* history size */
+extern uint32_t	histsize;	/* history size */
 
 #endif /* HISTORY */
 
