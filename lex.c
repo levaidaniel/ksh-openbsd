@@ -1,4 +1,4 @@
-/*	$OpenBSD: lex.c,v 1.77 2018/01/06 16:28:58 millert Exp $	*/
+/*	$OpenBSD: lex.c,v 1.78 2018/01/15 14:58:05 jca Exp $	*/
 
 /*
  * lexical analysis and source input
@@ -1087,14 +1087,13 @@ getsc_line(Source *s)
 		ksh_tmout_state = TMOUT_READING;
 		alarm(ksh_tmout);
 	}
-#ifdef EDIT
 	if (have_tty && (0
-# ifdef VI
+#ifdef VI
 	    || Flag(FVI)
-# endif /* VI */
-# ifdef EMACS
+#endif /* VI */
+#ifdef EMACS
 	    || Flag(FEMACS) || Flag(FGMACS)
-# endif /* EMACS */
+#endif /* EMACS */
 	    )) {
 		int nread;
 
@@ -1103,10 +1102,7 @@ getsc_line(Source *s)
 			nread = 0;
 		xp[nread] = '\0';
 		xp += nread;
-	}
-	else
-#endif /* EDIT */
-	{
+	} else {
 		if (interactive) {
 			pprompt(prompt, 0);
 		} else
@@ -1154,7 +1150,6 @@ getsc_line(Source *s)
 			shf_fdclose(s->u.shf);
 		s->str = NULL;
 	} else if (interactive) {
-#ifdef HISTORY
 		char *p = Xstring(s->xs, xp);
 		if (cur_prompt == PS1)
 			while (*p && ctype(*p, C_IFS) && ctype(*p, C_IFSWS))
@@ -1163,7 +1158,6 @@ getsc_line(Source *s)
 			s->line++;
 			histsave(s->line, s->str, 1);
 		}
-#endif /* HISTORY */
 	}
 	if (interactive)
 		set_prompt(PS2);
