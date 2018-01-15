@@ -1,4 +1,4 @@
-/*	$OpenBSD: vi.c,v 1.53 2018/01/06 16:28:58 millert Exp $	*/
+/*	$OpenBSD: vi.c,v 1.54 2018/01/13 02:06:54 schwarze Exp $	*/
 
 /*
  *	vi command editing
@@ -60,8 +60,8 @@ static int	newcol(int, int);
 static void	display(char *, char *, int);
 static void	ed_mov_opt(int, char *);
 static int	expand_word(int);
-static int	complete_word(int, int, int);
-static int	print_expansions(struct edstate *, int);
+static int	complete_word(int, int);
+static int	print_expansions(struct edstate *);
 static int	char_len(int);
 static void	x_vi_zotc(int);
 static void	vi_pprompt(int);
@@ -558,12 +558,7 @@ vi_insert(int ch)
 			}
 		} else {
 			if (es->cursor == 0) {
-				/*
-				 * no annoying bell here
-				 *
-				if (!Flag(FNOBEEP))
-					x_putc(BEL);
-				*/
+				/* x_putc(BEL); no annoying bell here */
 				return 0;
 			}
 		}
@@ -644,27 +639,21 @@ vi_insert(int ch)
 			return redo_insert(lastac - 1);
 
 	/* { Begin nonstandard vi commands */
-	case CTRL('l'):
-		/* Use ANSI escape codes to clear the screen */
-		x_puts("\033[2J\033[0;0H");
-		redraw_line(0);
-		break;
-
 	case CTRL('x'):
 		expand_word(0);
 		break;
 
 	case CTRL('f'):
-		complete_word(0, 0, XCF_FORCE_COMMAND);
+		complete_word(0, 0);
 		break;
 
 	case CTRL('e'):
-		print_expansions(es, 0);
+		print_expansions(es);
 		break;
 
 	case CTRL('i'):
 		if (Flag(FVITABCOMPLETE)) {
-			complete_word(0, 0, 0);
+			complete_word(0, 0);
 			break;
 		}
 		/* FALLTHROUGH */
@@ -1136,14 +1125,14 @@ vi_cmd(int argcnt, const char *cmd)
 
 		case '=':			/* at&t ksh */
 		case CTRL('e'):			/* Nonstandard vi/ksh */
-			print_expansions(es, 0);
+			print_expansions(es);
 			break;
 
 
 		case CTRL('i'):			/* Nonstandard vi/ksh */
 			if (!Flag(FVITABCOMPLETE))
 				return -1;
-			complete_word(1, argcnt, 0);
+			complete_word(1, argcnt);
 			break;
 
 		case CTRL('['):			/* some annoying at&t ksh's */
@@ -1151,7 +1140,7 @@ vi_cmd(int argcnt, const char *cmd)
 				return -1;
 		case '\\':			/* at&t ksh */
 		case CTRL('f'):			/* Nonstandard vi/ksh */
-			complete_word(1, argcnt, XCF_FORCE_COMMAND);
+			complete_word(1, argcnt);
 			break;
 
 
@@ -2049,7 +2038,7 @@ expand_word(int command)
 }
 
 static int
-complete_word(int command, int count, int flags)
+complete_word(int command, int count)
 {
 	static struct edstate *buf;
 	int rval = 0;
@@ -2060,11 +2049,10 @@ complete_word(int command, int count, int flags)
 	int match_len;
 	int is_unique;
 	int is_command;
-	int pos;
 
 	/* Undo previous completion */
 	if (command == 0 && expanded == COMPLETE && buf) {
-		print_expansions(buf, flags);
+		print_expansions(buf);
 		expanded = PRINT;
 		return 0;
 	}
@@ -2079,23 +2067,11 @@ complete_word(int command, int count, int flags)
 		buf = NULL;
 	}
 
-	/* XXX: hack. When we enter command mode, the cursor is moved
-	 * one position left. This means that the space at the end is
-	 * eaten and file completion becomes command completion.
-	 * (see x_locate_word() for more on this)
-	 */
-	pos = es->cursor;
-	if (command) {
-		pos += (isspace(es->cbuf[es->cursor]) ? 1 : 0);
-		if (pos > es->linelen)
-			pos = es->linelen;
-	}
-
 	/* XCF_FULLPATH for count 'cause the menu printed by print_expansions()
 	 * was done this way.
 	 */
-	nwords = x_cf_glob(XCF_COMMAND_FILE | (count ? XCF_FULLPATH : 0) | flags,
-	    es->cbuf, es->linelen, pos,
+	nwords = x_cf_glob(XCF_COMMAND_FILE | (count ? XCF_FULLPATH : 0),
+	    es->cbuf, es->linelen, es->cursor,
 	    &start, &end, &words, &is_command);
 	if (nwords == 0) {
 		vi_error();
@@ -2107,7 +2083,7 @@ complete_word(int command, int count, int flags)
 		count--;
 		if (count >= nwords) {
 			vi_error();
-			x_print_expansions(nwords, words, is_command, 1);
+			x_print_expansions(nwords, words, is_command);
 			x_free_words(nwords, words);
 			redraw_line(0);
 			return -1;
@@ -2167,21 +2143,21 @@ complete_word(int command, int count, int flags)
 }
 
 static int
-print_expansions(struct edstate *e, int flags)
+print_expansions(struct edstate *e)
 {
 	int nwords;
 	int start, end;
 	char **words;
 	int is_command;
 
-	nwords = x_cf_glob(XCF_COMMAND_FILE|XCF_FULLPATH|flags,
+	nwords = x_cf_glob(XCF_COMMAND_FILE|XCF_FULLPATH,
 	    e->cbuf, e->linelen, e->cursor,
 	    &start, &end, &words, &is_command);
 	if (nwords == 0) {
 		vi_error();
 		return -1;
 	}
-	x_print_expansions(nwords, words, is_command, 1);
+	x_print_expansions(nwords, words, is_command);
 	x_free_words(nwords, words);
 	redraw_line(0);
 	return 0;

@@ -297,7 +297,7 @@ static void	glob_path(int flags, const char *pat, XPtrV *wp,
 				const char *path);
 
 void
-x_print_expansions(int nwords, char *const *words, int is_command, int menu)
+x_print_expansions(int nwords, char *const *words, int is_command)
 {
 	int prefix_len;
 
@@ -340,10 +340,7 @@ x_print_expansions(int nwords, char *const *words, int is_command, int menu)
 	/* Enumerate expansions */
 	x_putc('\r');
 	x_putc('\n');
-	if (menu)
-		pr_menu(words);
-	else
-		pr_list(words);
+	pr_list(words);
 }
 
 /*
@@ -669,8 +666,6 @@ x_cf_glob(int flags, const char *buf, int buflen, int pos, int *startp,
 	len = x_locate_word(buf, buflen, pos, startp, &is_command);
 	if (!(flags & XCF_COMMAND))
 		is_command = 0;
-	if (flags & XCF_FORCE_COMMAND)
-		is_command = 1;
 	/* Don't do command globing on zero length strings - it takes too
 	 * long and isn't very useful.  File globs are more likely to be
 	 * useful, so allow these.
@@ -713,14 +708,14 @@ add_glob(const char *str, int slen)
 
 	/*
 	 * If the pathname contains a wildcard (an unquoted '*',
-	 * '?', or '[') or a ~username with no trailing slash,
-	 * then it is globbed based on that value (i.e., without
-	 * the appended '*').
+	 * '?', or '[') or parameter expansion ('$'), or a ~username
+	 * with no trailing slash, then it is globbed based on that
+	 * value (i.e., without the appended '*').
 	 */
 	for (s = toglob; *s; s++) {
 		if (*s == '\\' && s[1])
 			s++;
-		else if ((*s == '*' || *s == '[' || *s == '?') ||
+		else if (*s == '*' || *s == '[' || *s == '?' || *s == '$' ||
 		    (s[1] == '(' /*)*/ && strchr("+@!", *s)))
 			break;
 		else if (*s == '/')
