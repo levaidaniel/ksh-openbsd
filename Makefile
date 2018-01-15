@@ -17,12 +17,7 @@ OBJS =	alloc.o c_ksh.o c_sh.o c_test.o c_ulimit.o edit.o emacs.o eval.o \
 	misc.o path.o shf.o syn.o table.o trap.o tree.o tty.o var.o \
 	version.o vi.o vis.o
 
-CDIAGFLAGS=     -Wall -Wpointer-arith -Wuninitialized -Wstrict-prototypes
-CDIAGFLAGS+=    -Wmissing-prototypes -Wunused -Wsign-compare
-CDIAGFLAGS+=    -Wshadow
-CDIAGFLAGS+=    -Wdeclaration-after-statement
-
-CFLAGS +=	$(CDIAGFLAGS) `getconf LFS_CFLAGS` -DEMACS -DVI
+CFLAGS +=	-Wall -Wshadow `getconf LFS_CFLAGS` -DEMACS -DVI
 LDADD +=	-lbsd
 
 $(PROG): $(OBJS)
