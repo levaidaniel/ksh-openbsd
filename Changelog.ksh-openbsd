@@ -1,3 +1,5 @@
+2018-01-15 23:02:49 +0100 9233084 Revert nobeep option.
+2018-01-15 22:02:01 +0100 d0093ea Update Changelog
 2018-01-15 22:01:24 +0100 49ffcad Use libbsd includes in vis.c (imported source from OpenBSD)
 2018-01-15 21:50:34 +0100 8938233 Stop pretending we support building ksh without EDIT/HISTORY support
 2018-01-15 21:49:49 +0100 2310515 unifdef BRACE_EXPAND; ok jca@
