@@ -34,8 +34,8 @@
 #include <errno.h>
 #include <ctype.h>
 #include <limits.h>
-#include <string.h>
-#include <stdlib.h>
+#include <bsd/string.h>
+#include <bsd/stdlib.h>
 
 #include "vis.h"
 
