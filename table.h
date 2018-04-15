@@ -6,6 +6,8 @@
  * generic hashed associative table for commands and variables.
  */
 
+#include <inttypes.h>
+
 struct table {
 	Area   *areap;		/* area to allocate entries */
 	int	size, nfree;	/* hash size (always 2^^n), free entries */
