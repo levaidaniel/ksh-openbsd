@@ -23,7 +23,7 @@ CDIAGFLAGS+=	-Wshadow
 CDIAGFLAGS+=	-Wdeclaration-after-statement
 
 CFLAGS +=	$(CDIAGFLAGS) `getconf LFS_CFLAGS` -DEMACS -DVI
-LDADD +=	-lbsd
+LDADD +=	-lbsd -lcurses
 
 $(PROG): $(OBJS)
 	$(CC) -o $(PROG) $(CFLAGS) $(LDADD) \
