@@ -1,4 +1,4 @@
-/*	$OpenBSD: misc.c,v 1.71 2018/11/16 06:41:58 nicm Exp $	*/
+/*	$OpenBSD: misc.c,v 1.72 2018/11/20 08:12:26 deraadt Exp $	*/
 
 /*
  * Miscellaneous functions
@@ -291,12 +291,24 @@ change_flag(enum sh_flag f,
 		}
 	} else
 	/* Turning off -p? */
+#ifdef PLEDGE
+	if (f == FPRIVILEGED && oldval && !newval && issetugid() &&
+	    !dropped_privileges) {
+#else
 	if (f == FPRIVILEGED && oldval && !newval) {
+#endif
 		gid_t gid = getgid();
 
 		setresgid(gid, gid, gid);
 		setgroups(1, &gid);
 		setresuid(ksheuid, ksheuid, ksheuid);
+
+#ifdef PLEDGE
+		if (pledge("stdio rpath wpath cpath fattr flock getpw proc "
+		    "exec tty", NULL) == -1)
+			bi_errorf("pledge fail");
+ 		dropped_privileges = 1;
+#endif
 	} else if (f == FPOSIX && newval) {
 		Flag(FBRACEEXPAND) = 0;
 	}
