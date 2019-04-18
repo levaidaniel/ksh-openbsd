@@ -1,3 +1,41 @@
+2019-04-18 20:02:54 +0200 1b2e2be Bind ^L (C-l) to clear-screen instead of redraw
+2019-04-18 20:02:01 +0200 b9bf9e0 When evaluating an arithmetical expression, for example inside $(()),
+2019-01-27 19:53:05 +0100 1c3aabb I am retiring my old email address;  replace it with my OpenBSD one.
+2019-01-27 19:52:48 +0100 3f9b286 Fix three more buglets:
+2019-01-27 19:52:18 +0100 64beb34 do not peek before the beginning of a string
+2019-01-27 19:52:11 +0100 4210ef7 short circuit mail check if MAIL is unset. ok anton
+2019-01-27 19:52:03 +0100 b493115 Delete unnecessary <libgen.h> #includes
+2019-01-27 19:51:57 +0100 bb61f12 Tweak the syntax displays to show that the list of words
+2019-01-27 19:51:43 +0100 594c5b8 Fix kill [-SIGNAME | -s SIGNAME] and simplify
+2019-01-27 19:51:24 +0100 9ce14ba in getopts, when a option is followed by a colon the parameter is mandatory
+2019-01-27 19:51:05 +0100 c860e9c Convert the pledge call to idiomatic format 'cause we love grep.
+2019-01-27 19:48:47 +0100 d0758b5 Fix the case where the recursion detection isn't reset when the command is
+2019-01-27 19:48:32 +0100 e1e2347 Use a very regular call pattern to pledge, so that we can continue to
+2019-01-27 19:45:14 +0100 753a9e0 Include "id" in pledge (for setres[ug]id, setgroups) if the shell is
+2019-01-27 19:34:42 +0100 91df8af Export the PWD and OLDPWD shell variables as per POSIX.
+2019-01-27 19:34:34 +0100 62984a2 Contrary to the sh manual, it is possible to modify the PWD variable
+2019-01-27 19:34:26 +0100 8512452 Second attempt of the recently backed out variable expansion fix. This time with
+2019-01-27 19:34:16 +0100 2558991 Back out previous. naddy and rpe found that it breaks the installer with
+2019-01-27 19:32:23 +0100 8b47ca1 Fix a bug related to variable expansion referencing multiple read-only
+2019-01-27 19:32:00 +0100 edb820c Count $MAILCHECK with the monotonic clock.
+2019-01-27 19:28:39 +0100 7771bdf Use shl_out->fd instead of STDOUT_FILENO in the call the setupterm().
+2019-01-27 19:28:27 +0100 b60a8c3 Add clear-screen emacs editing command, currently not bound to a
+2018-06-07 10:01:57 +0200 6cb76e3 point readers to the correct place instead of having them
+2018-06-07 10:01:20 +0200 2a31777 remove the alias type='whence -v' and replace it with
+2018-05-09 13:27:54 +0200 b88cf03 Keep the time pipeline's stack in tact
+2018-04-15 11:48:30 +0200 99c185f Fix fallout from the previous int64 patch
+2018-04-15 11:46:43 +0200 391f688 Count $SECONDS with CLOCK_MONOTONIC.
+2018-04-15 11:45:37 +0200 4d8711b Support 64 bit integers on 32 bit architectures.
+2018-04-06 12:42:32 +0200 e2a606d Fix spacing in brace command list grammar.
+2018-04-06 12:42:20 +0200 cbbd2c9 improve markup quality in the cases found by the new "--" style message
+2018-04-06 12:42:05 +0200 145e05b Favor usage of __func__ in warning/error messages. Some of them referred to the
+2018-04-06 12:41:50 +0200 29d1262 Clarify that the "bind" built-in command only affects Emacs editing
+2018-01-20 19:37:18 +0100 c485035 Remove code that has been disabled since 1999. From Michael W. Bombardieri who
+2018-01-19 16:31:26 +0100 2d5d9b8 Introduce internal_warningf() and mark internal_errorf() as noreturn
+2018-01-19 16:29:36 +0100 f925195 Stop constructing the ulimit optstring passed to ksh_getopt() at runtime since
+2018-01-19 16:29:13 +0100 a79e8b1 One minor scan-build warning
+2018-01-19 16:28:48 +0100 e443108 Don't try to open HISTFILE if the variable is unset.
+2018-01-15 23:04:15 +0100 e086e76 Update Changelog
 2018-01-15 23:02:49 +0100 9233084 Revert nobeep option.
 2018-01-15 22:02:01 +0100 d0093ea Update Changelog
 2018-01-15 22:01:24 +0100 49ffcad Use libbsd includes in vis.c (imported source from OpenBSD)
