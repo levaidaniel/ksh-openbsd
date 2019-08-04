@@ -1,3 +1,12 @@
+2019-08-04 16:25:16 +0200 004126f Add #include <stdlib.h> for mkstemp.
+2019-08-04 16:24:06 +0200 44f4cce When system calls indicate an error they return -1, not some arbitrary
+2019-08-04 16:23:48 +0200 68d0c2a Some asprintf() calls were checked < 0, rather than the precise == -1.
+2019-08-04 16:23:45 +0200 fda45d5 Fix spelling
+2019-08-04 16:23:37 +0200 b645a8f Partial revert of rev. 1.151:
+2019-08-03 21:43:58 +0200 6ebef4e zap trailing whitespace;
+2019-08-03 21:43:27 +0200 3223a01 Allow string greater/less than than operators to work with test aka [.
+2019-08-03 21:43:05 +0200 157d0f1 mention that using vi command line editing mode requires enabling it;
+2019-04-18 20:03:28 +0200 d5d110f Update Changelog
 2019-04-18 20:02:54 +0200 1b2e2be Bind ^L (C-l) to clear-screen instead of redraw
 2019-04-18 20:02:01 +0200 b9bf9e0 When evaluating an arithmetical expression, for example inside $(()),
 2019-01-27 19:53:05 +0100 1c3aabb I am retiring my old email address;  replace it with my OpenBSD one.
