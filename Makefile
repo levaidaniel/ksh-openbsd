@@ -3,8 +3,8 @@ PREFIX =	$(PREFIX)
 else
 PREFIX =	/usr
 endif
-BINDIR = 	$(DESTDIR)/bin
-MANDIR =	$(DESTDIR)$(PREFIX)/man
+BINDIR = 	$(DESTDIR)/$(PREFIX)/bin
+MANDIR =	$(DESTDIR)/$(PREFIX)/man
 TMP ?= /tmp
 
 PROG =	ksh
