@@ -300,3 +300,32 @@ expected-stdout:
 	Left overs: *
 ---
 
+name: heredoc-tmpfile-8
+description:
+	Check that heredoc temp files aren't removed too soon or too late.
+	Heredoc in function, backgrounded call to function.
+stdin:
+	TMPDIR=$PWD
+	# Background eval so main shell doesn't do parsing
+	eval '
+		foo() {
+			cat <<- EOF
+			hi
+			EOF
+		}
+		foo
+		# sleep so eval can die
+		(sleep 1; foo) &
+		(sleep 1; foo) &
+		foo
+	    ' &
+	sleep 2
+	echo Left overs: *
+expected-stdout:
+	hi
+	hi
+	hi
+	hi
+	Left overs: *
+---
+

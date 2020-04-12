@@ -77,3 +77,110 @@ expected-stdout:
 	6,5,3
 ---
 
+name: check-octal-valid-1
+description:
+	Check octal notation (valid input)
+stdin:
+	echo $((00)),$((-00)),$((007)),$((-007)),$((010)),$((-010))
+	echo $((010 + 1))
+expected-stdout:
+	0,0,7,-7,8,-8
+	9
+
+---
+
+name: check-octal-invalid-1
+description:
+	Check octal notation (invalid input)
+stdin:
+	echo $((08))
+expected-exit: e != 0
+expected-stderr-pattern:
+	/.*:.*08.*bad number/
+
+---
+name: check-hex-valid-1
+description:
+	Check hex notation (valid input)
+stdin:
+	echo $((0x0)),$((-0x0)),$((0xf)),$((-0xf)),$((0x10)),$((-0x10))
+	echo $((0x10 + 1))
+expected-stdout:
+	0,0,15,-15,16,-16
+	17
+
+---
+
+name: check-hex-invalid-1
+description:
+	Check hex notation (invalid input)
+stdin:
+	echo $((0xg))
+expected-exit: e != 0
+expected-stderr-pattern:
+	/.*:.* 0xg.*bad number/
+
+---
+
+name: arith-recurse-1
+description:
+	Check that arithmetic evaluation substitutes integer values
+	of variables recursively.
+stdin:
+	vb=va
+	va=42
+	echo $((vb))
+expected-stdout:
+	42
+
+---
+
+name: arith-recurse-2
+description:
+	Check that variables can be used as array indices.
+stdin:
+	vb='aa[va]'
+	set -A aa 40 41 42 43
+	va=2
+	echo ${aa[va]}
+	echo ${aa[$va]}
+	echo $((aa[va]))
+	echo $((aa[$va]))
+	echo $((vb))
+expected-stdout:
+	42
+	42
+	42
+	42
+	42
+
+---
+
+name: arith-subst-1
+description:
+	Check that arithmetic evaluation does not apply parameter
+	substitution to the values of variables.
+stdin:
+	va=17
+	vb='$va'
+	echo $((vb))
+expected-exit: e != 0
+expected-stderr-pattern:
+	/.*:.*\$va.*unexpected.*\$/
+
+---
+
+name: arith-subst-2
+description:
+	Check that arithmetic evaluation does not apply parameter
+	substitution to arry indices inside the values of variables.
+stdin:
+	set -A aa 40 41 42 43
+	va=2
+	vb='aa[$va]'
+	echo $((vb))
+expected-exit: e != 0
+expected-stderr-pattern:
+	/.*:.*\$va.*unexpected.*\$/
+
+---

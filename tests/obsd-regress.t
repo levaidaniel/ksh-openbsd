@@ -1,4 +1,4 @@
-#	$OpenBSD: obsd-regress.t,v 1.5 2013/07/01 17:25:27 jca Exp $
+#	$OpenBSD: obsd-regress.t,v 1.10 2018/12/08 21:03:51 jca Exp $
 
 #
 # ksh regression tests from OpenBSD
@@ -46,6 +46,22 @@ stdin:
 	for n in "${a%%=*}"; do echo ${n}; done
 expected-stdout:
 	
+---
+
+name: eval-5
+description:
+	Tests for expansion including multiple read-only variables
+stdin:
+	set -- script .sh
+	echo ${1%$2}
+	set -- foobar barbaz baz
+	echo ${1%${2%$3}}
+	set -- aa bb cc
+	echo ${*:+$*}
+expected-stdout:
+	script
+	foo
+	aa bb cc
 ---
 
 name: and-list-error-1
@@ -173,8 +189,8 @@ stdin:
 
 name: seterror-1
 description:
-	The -e flag should be ignored when executing a compound list
-	followed by an if statement.
+	The -e flag should be ignored on unsuccessful commands before && inside an
+	if statement.
 stdin:
 	if true; then false && false; fi
 	true
@@ -184,8 +200,8 @@ expected-exit: e == 0
 
 name: seterror-2
 description:
-	The -e flag should be ignored when executing a compound list
-	followed by an if statement.
+	The -e flag should be ignored on unsuccessful commands before && inside a
+	nested if statement.
 stdin:
 	if true; then if true; then false && false; fi; fi
 	true
@@ -205,8 +221,8 @@ expected-exit: e == 0
 
 name: seterror-4
 description:
-	The -e flag should be ignored when executing a pipeline
-	beginning with '!'
+	Inside a for statement, the -e flag should be ignored on successful commands
+	before ||, or unsuccessful commands before &&.
 stdin:
 	for i in 1 2 3
 	do
@@ -256,6 +272,110 @@ expected-stdout:
 	
 ---
 
+name: seterror-8
+description:
+	The -e flag within an if statement should terminate && chains on
+	failure in rightmost command.
+stdin:
+	if true; then true && false; fi
+	true
+arguments: !-e!
+expected-exit: e != 0
+---
+
+name: seterror-9
+description:
+	The -e flag within a for statement should terminate && or || chains on
+	failure in rightmost command.
+stdin:
+	for f in 0; do true && false; done
+	true
+arguments: !-e!
+expected-exit: e != 0
+---
+
+name: seterror-10
+description:
+	The -e flag within a while statement should terminate && or || chains on
+	failure in rightmost command.
+stdin:
+	while true; do true && false; done
+	true
+arguments: !-e!
+expected-exit: e != 0
+---
+
+name: seterror-11
+description:
+	Putting it all together for -e mode, test an && chain behaving in different
+	ways in different iterations of a for loop.
+# file x is absent; xx is present
+file-setup: file 644 "xx"
+# file y is absent
+arguments: !-e!
+# first iteration of for loop errors at first branch of &&
+#   execution should continue in spite of -e mode
+# second iteration of for loop errors at second branch of &&
+#   -e mode should trigger exit
+stdin:
+	for f in x xx
+	do
+		test -f $f && test -f y  # final statement in loop
+	done
+	echo "should not print"
+expected-exit: e != 0
+---
+
+name: seterror-12
+description:
+	Putting it all together for -e mode, test an && chain behaving in different
+	ways in different iterations of a while loop.
+# file x is absent; xx is present
+file-setup: file 644 "x"
+# file y is absent
+arguments: !-e!
+# first iteration of for loop errors at first branch of &&
+#   execution should continue in spite of -e mode
+# second iteration of for loop errors at second branch of &&
+#   -e mode should trigger exit
+stdin:
+	x=''
+	y=''
+	while [ "$x" != xxx ]
+	do
+		x=x$x
+		y=y$y
+		test -f $x && test -f y  # final statement in loop
+	done
+	echo "should not print"
+expected-exit: e != 0
+---
+
+name: seterror-13
+description:
+	Putting it all together for -e mode, test an && chain behaving in different
+	ways in different iterations of a until loop.
+# file x is absent; xx is present
+file-setup: file 644 "x"
+# files y and yy are both absent
+arguments: !-e!
+# first iteration of for loop errors at first branch of &&
+#   execution should continue in spite of -e mode
+# second iteration of for loop errors at second branch of &&
+#   -e mode should trigger exit
+stdin:
+	x=''
+	y=''
+	until [ "$x" == xxx ]
+	do
+		x=x$x
+		y=y$y
+		test -f $x && test -f $y  # final statement in loop
+	done
+	echo "should not print"
+expected-exit: e != 0
+---
+
 name: input-comsub
 description:
 	A command substitution using input redirection should exit with
@@ -272,4 +392,114 @@ description:
 stdin:
 	set foo bar baz ; for out in ; do echo $out ; done
 
+---
+
+name: command-pvV-posix-priorities
+description:
+	For POSIX compatibility, command -v should find aliases and reserved
+	words, and command -p[vV] should find aliases, reserved words, and
+	builtins over external commands.
+stdin:
+	PATH=$(command -p getconf PATH) || PATH=/bin:/usr/bin
+	alias foo="bar baz"
+	bar() { :; }
+	for word in 'if' 'foo' 'bar' 'set' 'true' 'ls'; do
+		command -v "$word"
+		command -pv "$word"
+		command -V "$word"
+		command -pV "$word"
+	done
+expected-stdout-pattern:
+	/^if
+	if
+	if is a reserved word
+	if is a reserved word
+	alias foo='bar baz'
+	alias foo='bar baz'
+	foo is an alias for 'bar baz'
+	foo is an alias for 'bar baz'
+	bar
+	bar
+	bar is a function
+	bar is a function
+	set
+	set
+	set is a special shell builtin
+	set is a special shell builtin
+	true
+	true
+	true is a shell builtin
+	true is a shell builtin
+	.*\/ls.*
+	.*\/ls.*
+	ls is a tracked alias for .*\/ls.*
+	ls is .*\/ls.*$/
+---
+
+name: whence-preserve-tradition
+description:
+	POSIX 'command' and ksh88/pdksh-specific 'whence' are handled by the
+	same c_whence() function.  This regression test is to ensure that
+	the POSIX compatibility changes for 'command' (see previous test) do
+	not affect traditional 'whence' behaviour.
+stdin:
+	PATH=$(command -p getconf PATH) || PATH=/bin:/usr/bin
+	alias foo="bar baz"
+	bar() { :; }
+	for word in 'if' 'foo' 'bar' 'set' 'true' 'ls'; do
+		whence "$word"
+		whence -p "$word"
+		whence -v "$word"
+		whence -pv "$word"
+	done
+expected-stdout-pattern:
+	/^if
+	if is a reserved word
+	if not found
+	'bar baz'
+	foo is an alias for 'bar baz'
+	foo not found
+	bar
+	bar is a function
+	bar not found
+	set
+	set is a special shell builtin
+	set not found
+	true
+	.*\/true.*
+	true is a shell builtin
+	true is a tracked alias for .*\/true.*
+	.*\/ls.*
+	.*\/ls.*
+	ls is a tracked alias for .*\/ls.*
+	ls is a tracked alias for .*\/ls.*$/
+---
+
+name: shellopt-u-1
+description:
+	Check that "$@" and "$*" are exempt from 'set -u' (nounset)
+stdin:
+	set -u
+	: "$@$*$1"
+expected-exit: e == 1
+expected-stderr-pattern:
+	/: 1: parameter not set$/
+---
+
+name: pwd
+description:
+	PWD and OLDPWD must be exported
+stdin:
+	d=$(printenv PWD)
+	: ${d:?"PWD not exported"}
+	cd .
+	d=$(printenv OLDPWD)
+	: ${d:?"OLDPWD not exported"}
+---
+
+name: kill-SIGNAME
+description:
+	support kill -s SIGNAME syntax
+stdin:
+	kill -s SIGCONT $$
 ---

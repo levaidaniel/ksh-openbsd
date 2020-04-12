@@ -66,11 +66,19 @@ stdin:
 	cmp -s bar1 bar2
 ---
 
-name: xxx-what-do-you-call-this-1
+name: quoted-brace-expansion-1
 stdin:
 	echo "${foo:-"a"}*"
 expected-stdout:
 	a*
+---
+
+name: quoted-brace-expansion-2
+stdin:
+	foo='bar'
+	echo "${foo+(a)}*"
+expected-stdout:
+	(a)*
 ---
 
 name: xxx-prefix-strip-1

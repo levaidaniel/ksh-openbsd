@@ -1,4 +1,4 @@
-#	$OpenBSD: regress.t,v 1.16 2013/09/14 20:09:30 millert Exp $
+#	$OpenBSD: regress.t,v 1.4 2018/04/24 10:27:25 kn Exp $
 
 #
 # The first 39 of these tests are from the old Bugs script.
@@ -787,8 +787,8 @@ expected-stdout:
 	hi
 	hi
 	there
-expected-stderr: !
-	YYYY
+expected-stderr-pattern:
+	/^YYYY$/m
 ---
 
 name: regression-51
@@ -821,8 +821,8 @@ expected-stdout:
 	mark 1
 	Y X stuff
 	mark 2
-expected-stderr: !
-	PPPPP
+expected-stderr-pattern:
+	/^PPPPP$/m
 ---
 
 name: regression-53
@@ -1089,3 +1089,35 @@ expected-stdout:
 	ot OK
 ---
 
+name: regression-63
+description:
+	Check octal escape expansion in prompts.
+file-setup: file 644 "env"
+	PS1=\\131
+	PS2=\\130
+env-setup: !ENV=./env!
+arguments: !-i!
+stdin:
+	echo hello
+	for i in 1 2 3; do
+		echo there
+	done
+expected-stdout: 
+	hello
+	there
+	there
+	there
+expected-stderr-pattern:
+	/^YYXXY$/m
+---
+
+name: regression-64
+description:
+	Check whether time keeps the pipeline's stack intact.
+stdin:
+	time for i in _ ; do echo body ; done
+expected-stdout:
+	body
+expected-stderr-pattern:
+	!/^\s*0\.0[\s\d]+real|^\s*real[\s]+0+\.0/
+---
