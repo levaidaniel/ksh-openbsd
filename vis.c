@@ -139,7 +139,6 @@ done:
 	*dst = '\0';
 	return (dst);
 }
-DEF_WEAK(vis);
 
 /*
  * strvis, strnvis, strvisx - visually encode characters from src into dst
@@ -165,7 +164,6 @@ strvis(char *dst, const char *src, int flag)
 	*dst = '\0';
 	return (dst - start);
 }
-DEF_WEAK(strvis);
 
 int
 strnvis(char *dst, const char *src, size_t siz, int flag)
