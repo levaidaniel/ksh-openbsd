@@ -1,3 +1,14 @@
+2021-01-16 10:27:10 +0100 b0a53e7 In lib/libc/gen/charclass.h r1.3 guenther made c..
+2020-10-05 10:12:18 +0200 8819c6c Clear screen before redrawing the line with ^L, ..
+2020-10-05 10:10:50 +0200 c767b98 Fix "$@" splitting with empty IFS
+2020-07-23 22:20:13 +0200 8d830d2 Collapse consecutive stars to avoid exponential ..
+2020-07-09 23:33:38 +0200 7224801 Add support for set -o pipefail
+2020-07-09 23:30:15 +0200 a27f290 Add test covering revision 1.64 of c_sh..
+2020-07-09 23:17:04 +0200 2be7af0 vis.c: don't need these here
+2020-05-25 11:39:37 +0200 2020dd1 Fix the exit code when eval()uating a || compoun..
+2020-05-09 19:32:40 +0200 d8ca3b9 Use proper function pointer type instead of void *
+2020-04-12 13:36:58 +0200 ef65775 Tune Makefile a bit for "easier" installation
+2020-04-12 13:30:57 +0200 ce0920f Update Changelog
 2020-04-12 13:29:56 +0200 07fe6da Bring tests up-to-date
 2020-04-12 12:35:53 +0200 2fa4a70 Add new patch applier that works from the openbsd github repository
 2020-04-12 12:34:57 +0200 68de785 Enforce that TMOUT is an integer literal to prev..
