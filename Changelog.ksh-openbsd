@@ -1,3 +1,12 @@
+2021-04-19 15:29:50 +0200 b26def1 Provide definition of CTRL in vi.c like we do fo..
+2021-04-19 15:29:45 +0200 aef2e80 groff complains about the word "An" in an Rs/Re ..
+2021-04-19 15:29:34 +0200 e44b766 Add support for ^R (redraw) in insert mode too. ..
+2021-04-19 15:29:21 +0200 06608da Fix redrawing of a multiline PS1 prompt in vi mo..
+2021-04-19 15:29:12 +0200 95d221d use a journal reference instead of cstr when pos..
+2021-04-19 15:29:03 +0200 a489f1e Add some references, most of these were removed ..
+2021-04-19 15:27:40 +0200 61fc9ca Restrict diff display to current directory
+2021-04-19 15:21:20 +0200 3b5a4dd Fix old ksh bug: wrong variable being looked up ..
+2021-01-16 10:29:08 +0100 1d2d8bb Update Changelog
 2021-01-16 10:27:10 +0100 b0a53e7 In lib/libc/gen/charclass.h r1.3 guenther made c..
 2020-10-05 10:12:18 +0200 8819c6c Clear screen before redrawing the line with ^L, ..
 2020-10-05 10:10:50 +0200 c767b98 Fix "$@" splitting with empty IFS
