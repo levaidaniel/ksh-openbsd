@@ -25,12 +25,12 @@ for commit in ${COMMITS};do
 	echo "===> ${id} (${comment})"
 
 	echo "Dry run:"
-	( cd "${REMOTE_DIR}"; git show "${id}" ) |patch -p3 --dry-run
+	( cd "${REMOTE_DIR}"; git show "${id}" . ) |patch -p3 --dry-run
 
 	echo -n "Apply ${id}? (y/n) [y] "; read
 	if [ "${REPLY}" != 'n' -a "${REPLY}" != 'N' ];then
 		rm -f *.rej
-		( cd "${REMOTE_DIR}"; git show "${id}" ) |patch --no-backup-if-mismatch -p3 || { ls -l *.rej; echo -n "failed to apply ${diff}. escape to shell, fix rejections, then get back here and press enter."; read; }
+		( cd "${REMOTE_DIR}"; git show "${id}" . ) |patch --no-backup-if-mismatch -p3 || { ls -l *.rej; echo -n "failed to apply ${diff}. escape to shell, fix rejections, then get back here and press enter."; read; }
 	fi
 
 	echo "Build test:"
