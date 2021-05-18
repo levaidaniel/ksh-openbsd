@@ -1,8 +1,8 @@
 #!/bin/sh
 
 
-LOCAL_DIR=/home/daniell/stuff/progs/ksh-openbsd/
-REMOTE_DIR=/home/daniell/stuff/progs/openbsd/bin/ksh/
+LOCAL_DIR="$(pwd)"
+REMOTE_DIR="${LOCAL_DIR}/../openbsd/bin/ksh/"
 IFS='
 '
 
