@@ -220,10 +220,10 @@ testseq "abc\0001\0033[4~" " # abc\0010\0010\0010abc"
 testseq "abc\0001\0033[1;5A" " # abc\0010\0010\0010abc"
 
 # ^_: eot
-testseq "\0037" " # ^D\r\r"
+#testseq "\0037" " # ^D\r\r"
 
 # [n] ^D: eot-or-delete
-testseq "\0004" " # ^D\r\r"
+#testseq "\0004" " # ^D\r\r"
 
 # ^X^X: exchange-point-and-mark
 # ^[space: set-mark-command
