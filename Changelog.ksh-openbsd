@@ -1,3 +1,6 @@
+2022-05-03 11:15:20 +0200 4f4618e tests/edit/emacs.h: these don't work yet(?)
+2022-05-03 11:13:36 +0200 ffc1fd8 Make 'edit' tests work
+2022-04-26 12:09:43 +0200 26ddf95 Update Changelog
 2022-04-26 12:08:28 +0200 869b471 Bring tests up-to-date
 2022-04-26 11:00:55 +0200 98f57dd man pages: add missing commas between subordinat..
 2022-04-26 11:00:42 +0200 38ef1fb when getopts prints "unknown option" or "require..
