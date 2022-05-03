@@ -26,14 +26,15 @@
 #include <string.h>
 #include <termios.h>
 #include <unistd.h>
-#include <util.h>
+#include <pty.h>
+#include <bsd/err.h>
 
 #define	WRTIM	50	/* input write timeout */
 #define	PRTIM	5000	/* prompt read timeout */
 
 static size_t		findprompt(const char *, const char *);
 static void		sighandler(int);
-static void __dead	usage(void);
+static void	 	usage(void);
 
 static volatile sig_atomic_t	gotsig;
 
@@ -178,7 +179,7 @@ sighandler(int sig)
 	gotsig = sig;
 }
 
-static void __dead
+static void
 usage(void)
 {
 	fprintf(stderr, "usage: edit -p prompt command [args]\n");

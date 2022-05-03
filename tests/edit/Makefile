@@ -1,20 +1,22 @@
-# $OpenBSD: Makefile,v 1.5 2021/07/10 07:10:31 anton Exp $
+EDITP =	edit
+EDIT =	edit.c
+EDITO =	edit.o
 
-KSH=	/bin/ksh
+VISP =	vis
+VIS =	vis.c foldit.c
+VISO =	vis.o foldit.o
 
-PROG=		edit
-CFLAGS+=	-Wall
-LDADD+=		-lutil
+LDADD =	-lbsd
 
-REGRESS_SETUP_ONCE=	${PROG}
+$(VISP): $(VISO)
+	$(CC) -o $(VISP) $(LDADD) \
+		$(VISO)
 
-REGRESS_TARGETS+=	emacs
-REGRESS_TARGETS+=	vi
+$(EDITP): $(EDITO)
+	$(CC) -o $(EDITP) $(LDADD) \
+		$(EDITO)
 
-emacs:
-	sh ${.CURDIR}/emacs.sh ${.CURDIR} ${KSH}
+all: $(VISP) $(EDITP)
 
-vi:
-	sh ${.CURDIR}/vi.sh ${.CURDIR} ${KSH}
-
-.include <bsd.regress.mk>
+clean:
+	rm -f $(EDITO) $(EDITP) $(VISO) $(VISP)

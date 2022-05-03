@@ -18,7 +18,7 @@
 testseq() {
 	stdin=$1
 	exp=$(echo "$2")
-	act=$(echo -n "$stdin" | ./edit -p "$PS1" -- ${KSH:-/bin/ksh} -r 2>&1)
+	act=$(echo -n "$stdin" | ./edit -p "$PS1" -- ${KSH:-../../ksh} -r 2>&1)
 	[ $? = 0 ] && [ "$exp" = "$act" ] && return 0
 
 	dump input "$stdin"
@@ -29,6 +29,6 @@ testseq() {
 }
 
 dump() {
-	printf '%s:\n>>>%s<<<\n' "$1" "$(echo -n "$2" | vis -ol)"
+	printf '%s:\n>>>%s<<<\n' "$1" "$(echo -n "$2" | ./vis -ol)"
 	echo -n "$2" | hexdump -Cv
 }

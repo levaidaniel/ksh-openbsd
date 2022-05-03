@@ -34,6 +34,7 @@ all: $(PROG)
 check test:
 	/usr/bin/perl tests/th -s tests -p ./ksh -T $(TMP) \
 		-C pdksh,sh,ksh,posix,posix-upu
+	cd tests/edit  &&  make all  &&  ./test.sh
 
 install:
 	install -m755 -d $(BINDIR)

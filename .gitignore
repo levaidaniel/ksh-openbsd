@@ -1,5 +1,7 @@
 ksh
 tags
+tests/edit/edit
+tests/edit/vis
 
 # Object files
 *.o
