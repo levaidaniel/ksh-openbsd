@@ -2,7 +2,7 @@
 
 
 LOCAL_DIR="$(pwd)"
-REMOTE_DIR="${LOCAL_DIR}/../openbsd/bin/ksh/"
+REMOTE_DIR="${LOCAL_DIR}/../openbsd/src/bin/ksh/"
 IFS='
 '
 
