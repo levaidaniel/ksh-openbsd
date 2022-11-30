@@ -1,3 +1,8 @@
+2022-11-30 08:53:47 +0100 3c47a08 Update tests
+2022-11-30 08:33:00 +0100 bb05e21 Trigger ERR trap on permanent I/O redirection fa..
+2022-11-30 08:32:34 +0100 3a0dcc6 == in [[ does pattern matching as well
+2022-11-30 08:31:47 +0100 67b75d0 use the posix phrasing to improve the descriptio..
+2022-05-03 11:16:08 +0200 5142816 Update Changelog
 2022-05-03 11:15:20 +0200 4f4618e tests/edit/emacs.h: these don't work yet(?)
 2022-05-03 11:13:36 +0200 ffc1fd8 Make 'edit' tests work
 2022-04-26 12:09:43 +0200 26ddf95 Update Changelog
