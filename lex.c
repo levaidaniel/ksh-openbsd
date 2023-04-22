@@ -1,4 +1,4 @@
-/*	$OpenBSD: lex.c,v 1.78 2018/01/15 14:58:05 jca Exp $	*/
+/*	$OpenBSD: lex.c,v 1.79 2023/02/08 17:22:10 kn Exp $	*/
 
 /*
  * lexical analysis and source input
@@ -1336,6 +1336,7 @@ dopprompt(const char *sp, int ntruncate, const char **spp, int doprint)
 			case 'u':	/* '\' 'u' username */
 				strlcpy(strbuf, username, sizeof strbuf);
 				break;
+#ifndef SMALL
 			case 'v':	/* '\' 'v' version (short) */
 				p = strchr(ksh_version, ' ');
 				if (p)
@@ -1351,6 +1352,7 @@ dopprompt(const char *sp, int ntruncate, const char **spp, int doprint)
 			case 'V':	/* '\' 'V' version (long) */
 				strlcpy(strbuf, ksh_version, sizeof strbuf);
 				break;
+#endif /* SMALL */
 			case 'w':	/* '\' 'w' cwd */
 				p = str_val(global("PWD"));
 				n = strlen(str_val(global("HOME")));
