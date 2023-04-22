@@ -9,7 +9,7 @@ IFS='
 cd "${LOCAL_DIR}"
 
 if [ -z "$1" ];then
-	COMMITID=$(git show --no-patch --pretty='%b' HEAD |egrep '^Original commit id: ' |cut -d' ' -f4)
+	COMMITID=$(git show --no-patch --pretty='%b' HEAD |grep -E -e '^Original commit id: ' |cut -d' ' -f4)
 	echo "Press enter to start after commit id: ${COMMITID} or quit and tell me which commit id to start with as the first parameter"; read
 else
 	COMMITID=$1
