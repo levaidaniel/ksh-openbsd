@@ -1,3 +1,13 @@
+2023-07-30 12:25:17 +0200 a27d377 avoid MAIL* environment variables to save a few ..
+2023-07-30 12:24:14 +0200 365c2e4 ksh: escape control chars when displaying file n..
+2023-07-30 12:22:40 +0200 0a51a68 ksh: remove broken special handling of test -t
+2023-07-30 12:21:49 +0200 727abcb ksh: make $(< filename) error output include the..
+2023-07-30 12:21:32 +0200 102897f add /usr/local/sbin to PATH; confirmed/ok kn
+2023-04-22 10:31:42 +0200 df46749 Omit version in SMALL ksh builds
+2023-04-22 10:31:28 +0200 b566eba reformat some multiline markup, which had been c..
+2023-04-22 10:30:58 +0200 716f88c Remove array reference from sh(1) because sh doe..
+2023-04-22 10:29:53 +0200 06de213 fix apply_gitdiff.sh egrep(1) call
+2022-11-30 08:59:11 +0100 51fe1eb Update Changelog
 2022-11-30 08:53:47 +0100 3c47a08 Update tests
 2022-11-30 08:33:00 +0100 bb05e21 Trigger ERR trap on permanent I/O redirection fa..
 2022-11-30 08:32:34 +0100 3a0dcc6 == in [[ does pattern matching as well
