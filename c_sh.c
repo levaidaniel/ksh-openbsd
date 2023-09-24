@@ -21,18 +21,6 @@
 #include "sh.h"
 
 
-/* from OpenBSD's sys/time.h */
-#define timespecsub(tsp, usp, vsp)					\
-	do {								\
-		(vsp)->tv_sec = (tsp)->tv_sec - (usp)->tv_sec;		\
-		(vsp)->tv_nsec = (tsp)->tv_nsec - (usp)->tv_nsec;	\
-		if ((vsp)->tv_nsec < 0) {				\
-			(vsp)->tv_sec--;				\
-			(vsp)->tv_nsec += 1000000000L;			\
-		}							\
-	} while (0)
-
-
 static void p_tv(struct shf *, int, struct timeval *, int, char *, char *);
 static void p_ts(struct shf *, int, struct timespec *, int, char *, char *);
 
