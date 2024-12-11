@@ -1,3 +1,15 @@
+2024-12-11 10:36:13 +0100 2853458 remove some unneeded Xo/Xc calls; from evan silb..
+2024-12-11 10:36:02 +0100 bd49e63 If during parsing lines in the script, ksh finds..
+2024-12-11 10:34:17 +0100 536d9d3 inline `start' and simplify;  from/ok millert@
+2024-12-11 10:33:43 +0100 a978e42 ksh: use strtonum() in findhistrel()
+2024-12-11 10:31:00 +0100 fc139cd gmtime(3) / locatime(3) can fail when timestamps..
+2024-12-11 10:30:39 +0100 a53fae9 correct indentation; no functional change ok tb@
+2024-12-11 10:30:28 +0100 0a53b5a add missing Ev macro; from mail at lukasneukom ch
+2024-12-11 10:30:13 +0100 3a23120 Improve markup in some cases where .Li was abuse..
+2024-12-11 10:29:43 +0100 8fd812b misc.c: reorder includes
+2023-09-24 09:27:39 +0200 73f0fec Don't need this when we have <bsd/sys/time.h>
+2023-09-24 09:27:00 +0200 5cea809 sh(1), ksh(1): reimplement p_tv() with p_ts()
+2023-07-30 12:26:03 +0200 ff0ec84 Update Changelog
 2023-07-30 12:25:17 +0200 a27d377 avoid MAIL* environment variables to save a few ..
 2023-07-30 12:24:14 +0200 365c2e4 ksh: escape control chars when displaying file n..
 2023-07-30 12:22:40 +0200 0a51a68 ksh: remove broken special handling of test -t
