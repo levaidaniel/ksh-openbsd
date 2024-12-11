@@ -11,10 +11,13 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <bsd/string.h>
-#include <unistd.h>
 
 #include "sh.h"
 #include "charclass.h"
+
+/* this has to be afer "sh.h" that defines __USE_GNU that's needed for
+ * setres[gu]id from <unistd.h> */
+#include <unistd.h>
 
 short ctypes [UCHAR_MAX+1];	/* type bits for unsigned char */
 
