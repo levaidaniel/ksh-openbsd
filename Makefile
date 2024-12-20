@@ -22,12 +22,12 @@ CDIAGFLAGS+=	-Wmissing-prototypes -Wunused -Wsign-compare
 CDIAGFLAGS+=	-Wshadow
 CDIAGFLAGS+=	-Wdeclaration-after-statement
 
-CFLAGS +=	$(CDIAGFLAGS) `getconf LFS_CFLAGS` -DEMACS -DVI
-LDADD +=	-lbsd -lcurses
+CFLAGS +=	$(CDIAGFLAGS) `getconf LFS_CFLAGS` -DEMACS -DVI `pkg-config --cflags ncurses`
+LDADD +=	-lbsd `pkg-config --libs ncurses`
 
 $(PROG): $(OBJS)
-	$(CC) -o $(PROG) $(CFLAGS) $(LDADD) \
-		$(OBJS)
+	$(CC) $(OBJS) $(LDADD) $(CFLAGS) \
+		-o $(PROG)
 
 all: $(PROG)
 
