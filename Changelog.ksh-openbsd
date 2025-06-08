@@ -1,3 +1,13 @@
+2025-06-08 12:10:47 +0200 c355f81 Minor improvement of the "move right by characte..
+2025-06-08 12:10:04 +0200 0b894af In VI editing mode, rewrite that part of the cur..
+2025-06-08 12:09:38 +0200 aa01406 In ksh(1) VI mode, prevent display corruption wh..
+2025-06-08 12:09:10 +0200 c13a495 Simple fix to prevvent the "delete to EOL" (D) c..
+2025-06-08 12:08:29 +0200 744a2d9 In VI command line editing mode, make the behavi..
+2025-06-08 12:08:02 +0200 1d5221f for "case", note that opening "(" and final ";;"..
+2025-06-08 12:07:04 +0200 21201d5 Fix UTF-8 handling in the "paste after" (p) comm..
+2025-06-08 12:06:38 +0200 d4fd18b Use timespeccmp() and st_mtim intead of comparin..
+2024-12-20 11:07:26 +0100 faa1071 Make Makefile more compatible (with e.g. Ubuntu)
+2024-12-11 10:38:01 +0100 184b568 Update Changelog
 2024-12-11 10:36:13 +0100 2853458 remove some unneeded Xo/Xc calls; from evan silb..
 2024-12-11 10:36:02 +0100 bd49e63 If during parsing lines in the script, ksh finds..
 2024-12-11 10:34:17 +0100 536d9d3 inline `start' and simplify;  from/ok millert@
