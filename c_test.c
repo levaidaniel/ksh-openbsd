@@ -1,4 +1,4 @@
-/*	$OpenBSD: c_test.c,v 1.28 2023/06/10 07:24:21 op Exp $	*/
+/*	$OpenBSD: c_test.c,v 1.29 2025/03/24 22:19:42 millert Exp $	*/
 
 /*
  * test(1); version 7-like  --  author Erik Baalbergen
@@ -16,6 +16,11 @@
 
 #include "sh.h"
 #include "c_test.h"
+
+#define timespeccmp(tsp, usp, cmp)		\
+	(((tsp)->tv_sec == (usp)->tv_sec) ?	\
+		((tsp)->tv_nsec cmp (usp)->tv_nsec) :	\
+		((tsp)->tv_sec cmp (usp)->tv_sec))
 
 /* test(1) accepts the following grammar:
 	oexpr	::= aexpr | aexpr "-o" oexpr ;
@@ -327,7 +332,8 @@ test_eval(Test_env *te, Test_op op, const char *opnd1, const char *opnd2,
 			 */
 			return stat(opnd1, &b1) == 0 &&
 			    (((s2 = stat(opnd2, &b2)) == 0 &&
-			    b1.st_mtime > b2.st_mtime) || s2 < 0);
+			    timespeccmp(&b1.st_mtim, &b2.st_mtim, >)) ||
+			    s2 != 0);
 		}
 	case TO_FILOT: /* -ot */
 		{
@@ -337,7 +343,8 @@ test_eval(Test_env *te, Test_op op, const char *opnd1, const char *opnd2,
 			 */
 			return stat(opnd2, &b2) == 0 &&
 			    (((s1 = stat(opnd1, &b1)) == 0 &&
-			    b1.st_mtime < b2.st_mtime) || s1 < 0);
+			    timespeccmp(&b1.st_mtim, &b2.st_mtim, <)) ||
+			    s1 != 0);
 		}
 	case TO_FILEQ: /* -ef */
 		return stat (opnd1, &b1) == 0 && stat (opnd2, &b2) == 0 &&
