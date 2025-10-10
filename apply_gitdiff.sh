@@ -9,13 +9,22 @@ IFS='
 cd "${LOCAL_DIR}"
 
 if [ -z "$1" ];then
-	COMMITID=$(git show --no-patch --pretty='%b' HEAD |grep -E -e '^Original commit id: ' |cut -d' ' -f4)
-	echo "Press enter to start after commit id: ${COMMITID} or quit and tell me which commit id to start with as the first parameter"; read
+	COMMITID=''
+	REF='HEAD'
+	while [ -z "${COMMITID}" ];do
+		echo "Trying ${REF}..."
+		COMMITID=$(git show --no-patch --pretty='%b' ${REF} |grep -E -e '^Original commit id: ' |cut -d' ' -f4)
+		REF="${REF}^"
+	done
 else
 	COMMITID=$1
 fi
 
-[ -z "${COMMITID}" ] && { echo 'No starting commit id detected or specified...'; exit 1; }
+if [ -z "${COMMITID}" ];then
+	echo 'No starting commit id detected or specified...'; exit 1; 
+else
+	printf "\n\nPress enter to start after commit id: ${COMMITID}: $(cd "${REMOTE_DIR}"; git show --no-patch --pretty='%B' ${COMMITID})\n\n...or quit and tell me which commit id to start with as the first parameter\n\n"; read
+fi
 
 COMMITS=$(cd "${REMOTE_DIR}"; git log --reverse --pretty=oneline "${COMMITID}".. "${REMOTE_DIR}")
 
