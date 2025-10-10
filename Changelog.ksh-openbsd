@@ -1,3 +1,6 @@
+2025-10-10 18:27:23 +0200 44b34a0 Completely rewrite rewindow(), the function that..
+2025-10-10 18:26:51 +0200 2244eeb Make it smarter
+2025-06-08 12:13:45 +0200 f004d1d Update changelog
 2025-06-08 12:10:47 +0200 c355f81 Minor improvement of the "move right by characte..
 2025-06-08 12:10:04 +0200 0b894af In VI editing mode, rewrite that part of the cur..
 2025-06-08 12:09:38 +0200 aa01406 In ksh(1) VI mode, prevent display corruption wh..
