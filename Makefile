@@ -4,7 +4,7 @@ else
 PREFIX =	/usr
 endif
 BINDIR = 	$(DESTDIR)/$(PREFIX)/bin
-MANDIR =	$(DESTDIR)/$(PREFIX)/man
+MANDIR =	$(DESTDIR)/$(PREFIX)/share/man
 TMP ?= /tmp
 
 PROG =	ksh
